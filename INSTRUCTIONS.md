@@ -1,7 +1,7 @@
 # INSTRUCTIONS — Team Split
 
 > **Per-person step-by-step guides (with Kaggle setup):**
-> [docs/INSTRUCTIONS_ABRAR.md](docs/INSTRUCTIONS_ABRAR.md) · [docs/INSTRUCTIONS_LABIB.md](docs/INSTRUCTIONS_LABIB.md)
+> [docs/INSTRUCTIONS_ABRAR.md](docs/INSTRUCTIONS_ABRAR.md) · [docs/INSTRUCTIONS_TANJID.md](docs/INSTRUCTIONS_TANJID.md)
 > This file is the shared overview.
 
 Two students, two branches, one shared `data/` + `models/` + `utils/` core.
@@ -59,7 +59,7 @@ figures/centralized/  figures/fewshot/  figures/kd/  figures/errors/
 
 ---
 
-## Student 2 — Labib  (branch: `labib-federated`)
+## Student 2 — Tanjid  (branch: `tanjid-federated`)
 
 Owns: **FedAvg · FedProx · client heterogeneity · communication · statistical validation**.
 RQ3 (FL vs centralized under non-IID), RQ3a (IID vs non-IID), RQ3b (FedProx stability), RQ3c (comm cost).

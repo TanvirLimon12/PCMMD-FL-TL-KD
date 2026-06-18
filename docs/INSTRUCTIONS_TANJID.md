@@ -1,7 +1,7 @@
-# INSTRUCTIONS — Labib
+# INSTRUCTIONS — Tanjid
 
 **Track:** Federated Learning (FedAvg + FedProx) · Client heterogeneity · Communication cost · Statistical validation
-**Branch:** `labib-federated`
+**Branch:** `tanjid-federated`
 **Research questions:** RQ3 (FL vs centralized under non-IID), RQ3a (IID vs non-IID), RQ3b (FedProx stability), RQ3c (communication cost)
 
 You must use the **same frozen** EDA outputs Abrar uses — no split generation in the FL code.
@@ -125,10 +125,10 @@ FL convergence figures; client heterogeneity + per-client figures; stats paragra
 ## 3. Download + push to GitHub
 
 ```bash
-git checkout -b labib-federated
+git checkout -b tanjid-federated
 git add results/ figures/ docs/experiment_log.md configs/
-git commit -m "Labib: FedAvg + FedProx + heterogeneity + stats"
-git push origin labib-federated
+git commit -m "Tanjid: FedAvg + FedProx + heterogeneity + stats"
+git push origin tanjid-federated
 # open a Pull Request into 'dev'
 ```
 

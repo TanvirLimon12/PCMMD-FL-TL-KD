@@ -90,7 +90,7 @@ The 2026 cropped cell images (~25 MB) live at **`data/patient_cells/`** and are 
 (images never go in git). For a fresh clone you must supply them:
 - **Local:** keep/restore `data/patient_cells/` (the crops the fold CSV `path`/basename refer to).
 - **Kaggle:** zip `data/patient_cells/` → upload as a Kaggle dataset → attach it, then run the
-  path-patch cell in `docs/INSTRUCTIONS_ABRAR.docx` / `INSTRUCTIONS_LABIB.docx` to set `image_root`.
+  path-patch cell in `docs/INSTRUCTIONS_ABRAR.docx` / `INSTRUCTIONS_TANJID.docx` to set `image_root`.
 
 > Do **not** re-run the EDA notebook or regenerate folds — they are frozen and patient-disjoint
 > (verified: all 5 folds have `patient_leakage == []`).

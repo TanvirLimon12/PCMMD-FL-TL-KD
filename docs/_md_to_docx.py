@@ -2,7 +2,7 @@
 _md_to_docx.py — render the PCMMD instruction markdown files to styled .docx.
 Handles: # headings, fenced ```code``` blocks (monospace + grey shade),
 - bullets, | tables |, **bold**, `inline code`, blockquotes, hr.
-Usage: python docs/_md_to_docx.py docs/INSTRUCTIONS_ABRAR.md docs/INSTRUCTIONS_LABIB.md
+Usage: python docs/_md_to_docx.py docs/INSTRUCTIONS_ABRAR.md docs/INSTRUCTIONS_TANJID.md
 """
 import re
 import sys
