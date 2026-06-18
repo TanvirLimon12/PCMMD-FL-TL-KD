@@ -1,0 +1,13 @@
+# PCMMD — Federated TL + KD pipeline
+# Tested on Python 3.10+. Kaggle GPU image already ships torch/torchvision.
+torch>=2.0
+torchvision>=0.15
+numpy>=1.23
+pandas>=1.5
+pillow>=9.0
+scikit-learn>=1.2
+pyyaml>=6.0
+matplotlib>=3.6
+# Optional — pipeline degrades gracefully if absent:
+scipy>=1.10          # paired t-tests / p-values in statistical_analysis.py
+thop>=0.1.1          # FLOPs/MACs in KD deployment analysis

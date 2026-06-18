@@ -1,0 +1,35 @@
+# ── Raw data / images (never commit) ─────────────────────────────────────────
+patient_cells/
+data/raw/
+data/images/
+*.zip
+
+# ── Model weights (too large for git) ────────────────────────────────────────
+*.pth
+*.pt
+*.ckpt
+checkpoints/**/*.pth
+
+# ── Python ───────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+*.egg-info/
+.venv/
+venv/
+
+# ── OS / editor ──────────────────────────────────────────────────────────────
+.DS_Store
+.vscode/
+.idea/
+~$*            # MS Word lock/temp files
+
+# ── Run artefacts ────────────────────────────────────────────────────────────
+# COMMIT: results CSVs + config snapshots + figures (small paper deliverables).
+# IGNORE: training logs (noisy) and model weights (large; *.pth rule above).
+results/logs/
+!results/.gitkeep
+!figures/.gitkeep
+!checkpoints/.gitkeep
+# Figures (PNG plots) ARE committed — every plot has a matching CSV.

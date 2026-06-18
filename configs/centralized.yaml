@@ -1,0 +1,26 @@
+data_root: data/eda
+fold_dir: null
+image_root: data/patient_cells
+root_dir: ./
+folds:
+- 1
+- 2
+- 3
+- 4
+- 5
+backbone: resnet50
+pretrained: true
+finetune_mode: full
+epochs: 30
+batch_size: 32
+learning_rate: 0.0001
+weight_decay: 0.0001
+patience: 10
+val_frac: 0.2
+loss: weighted_ce
+focal_gamma: 2.0
+num_workers: 2
+use_weighted_sampler: true
+results_dir: results
+figures_dir: figures
+ckpt_dir: checkpoints
