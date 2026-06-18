@@ -16,21 +16,23 @@ set is held out of the federation to pick the best global model; the TEST fold i
 ### Option A — Kaggle (GPU, recommended)
 
 1. **New Notebook** → **Settings → Accelerator → GPU**.
-2. **+ Add Data** → attach BOTH datasets:
-   - EDA-outputs dataset (`pcmmd_eda_outputs/fold_1.csv … fold_5.csv`)
-   - raw-image dataset (cropped cell PNGs)
+2. **+ Add Data** → attach the **PCMMD dataset** (uploaded from `PCMMD_kaggle_dataset.zip`).
+   Self-contained: `pcmmd_eda_outputs/` (folds + few-shot + metadata) **and** `patient_cells/`
+   (the cropped images). One dataset is enough.
 3. **Clone + install:**
    ```python
-   !git clone <YOUR_REPO_URL> /kaggle/working/PCMMD-repo
+   !git clone https://github.com/TanvirLimon12/PCMMD-FL-TL-KD /kaggle/working/PCMMD-repo
    %cd /kaggle/working/PCMMD-repo/PCMMD
    !pip install -q -r requirements.txt
    ```
+   > Folds/few-shot CSVs are also bundled in the repo (`data/eda/`) so local runs need no setup.
+   > On Kaggle attach the dataset above for the **images**, then run the patch cell below.
 4. **Auto-detect data paths and patch the configs (run once):**
    ```python
    import glob, pathlib, collections, yaml
 
    fold_hits = glob.glob('/kaggle/input/**/fold_1.csv', recursive=True)
-   assert fold_hits, "fold_1.csv not found — attach the EDA-outputs dataset."
+   assert fold_hits, "fold_1.csv not found — attach the PCMMD dataset."
    fold_dir = str(pathlib.Path(fold_hits[0]).parent)
 
    exts = {'.png', '.jpg', '.jpeg', '.bmp', '.tif', '.tiff'}

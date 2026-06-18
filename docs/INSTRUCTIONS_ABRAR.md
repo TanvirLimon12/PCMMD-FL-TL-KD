@@ -15,15 +15,18 @@ carved from train; the TEST fold is scored once (leakage-safe — handled for yo
 ### Option A — Kaggle (GPU, recommended)
 
 1. **New Notebook** → right panel **Settings → Accelerator → GPU** (T4/P100).
-2. **+ Add Data** → attach BOTH datasets:
-   - the EDA-outputs dataset (contains `pcmmd_eda_outputs/fold_1.csv … fold_5.csv`, `fewshot_*.csv`)
-   - the raw-image dataset (the cropped cell PNGs)
+2. **+ Add Data** → attach the **PCMMD dataset** (uploaded from `PCMMD_kaggle_dataset.zip`).
+   It is self-contained: `pcmmd_eda_outputs/` (folds + few-shot + metadata) **and**
+   `patient_cells/` (the cropped cell images). One dataset is enough.
 3. **Clone the repo** (first code cell):
    ```python
-   !git clone <YOUR_REPO_URL> /kaggle/working/PCMMD-repo
+   !git clone https://github.com/TanvirLimon12/PCMMD-FL-TL-KD /kaggle/working/PCMMD-repo
    %cd /kaggle/working/PCMMD-repo/PCMMD
    !pip install -q -r requirements.txt
    ```
+   > The folds/few-shot CSVs are also bundled in the repo at `data/eda/` (so local runs work
+   > with no setup). On Kaggle you still attach the dataset above for the **images**, then run
+   > the patch cell below to point `image_root` at the mounted images.
 4. **Point the configs at the mounted data.** Mount paths vary by dataset slug, so auto-detect them
    and patch every config (run this cell once):
    ```python
@@ -31,7 +34,7 @@ carved from train; the TEST fold is scored once (leakage-safe — handled for yo
 
    # locate the folds dir (the folder that holds fold_1.csv)
    fold_hits = glob.glob('/kaggle/input/**/fold_1.csv', recursive=True)
-   assert fold_hits, "fold_1.csv not found — did you attach the EDA-outputs dataset?"
+   assert fold_hits, "fold_1.csv not found — did you attach the PCMMD dataset?"
    fold_dir = str(pathlib.Path(fold_hits[0]).parent)
 
    # locate the image root = input subtree with the most image files
