@@ -1,0 +1,77 @@
+17:54:43 | INFO | Few-shot | backbones=['efficientnet_b0', 'mobilenet_v3'] pcts=[5, 10, 20, 50, 100] folds=[1, 2, 3, 4, 5] | device=cuda
+17:54:43 | WARNING | fewshot_5 fold1: dropped 17 rows colliding with test (anti-leakage).
+17:55:22 | INFO |   [efficientnet_b0 p5 f1] best_val_f1=0.8744
+17:55:58 | INFO |   [mobilenet_v3 p5 f1] best_val_f1=0.6228
+17:55:59 | WARNING | fewshot_10 fold1: dropped 39 rows colliding with test (anti-leakage).
+17:56:49 | INFO |   [efficientnet_b0 p10 f1] best_val_f1=0.9727
+17:57:31 | INFO |   [mobilenet_v3 p10 f1] best_val_f1=0.9333
+17:57:32 | WARNING | fewshot_20 fold1: dropped 86 rows colliding with test (anti-leakage).
+17:58:19 | INFO |   [efficientnet_b0 p20 f1] best_val_f1=0.9780
+17:59:12 | INFO |   [mobilenet_v3 p20 f1] best_val_f1=0.9278
+17:59:13 | WARNING | fewshot_50 fold1: dropped 216 rows colliding with test (anti-leakage).
+18:00:54 | INFO |   [efficientnet_b0 p50 f1] best_val_f1=0.9890
+18:01:52 | INFO |   [mobilenet_v3 p50 f1] best_val_f1=0.9836
+18:01:53 | WARNING | fewshot_100 fold1: dropped 402 rows colliding with test (anti-leakage).
+18:05:05 | INFO |   [efficientnet_b0 p100 f1] best_val_f1=1.0000
+18:06:44 | INFO |   [mobilenet_v3 p100 f1] best_val_f1=0.9945
+18:06:45 | WARNING | fewshot_5 fold2: dropped 19 rows colliding with test (anti-leakage).
+18:07:23 | INFO |   [efficientnet_b0 p5 f2] best_val_f1=0.9479
+18:07:45 | INFO |   [mobilenet_v3 p5 f2] best_val_f1=0.7009
+18:07:46 | WARNING | fewshot_10 fold2: dropped 44 rows colliding with test (anti-leakage).
+18:08:32 | INFO |   [efficientnet_b0 p10 f2] best_val_f1=0.9890
+18:09:12 | INFO |   [mobilenet_v3 p10 f2] best_val_f1=0.9524
+18:09:13 | WARNING | fewshot_20 fold2: dropped 80 rows colliding with test (anti-leakage).
+18:09:56 | INFO |   [efficientnet_b0 p20 f2] best_val_f1=0.9780
+18:10:34 | INFO |   [mobilenet_v3 p20 f2] best_val_f1=0.9838
+18:10:35 | WARNING | fewshot_50 fold2: dropped 197 rows colliding with test (anti-leakage).
+18:11:48 | INFO |   [efficientnet_b0 p50 f2] best_val_f1=0.9945
+18:12:48 | INFO |   [mobilenet_v3 p50 f2] best_val_f1=0.9891
+18:12:50 | WARNING | fewshot_100 fold2: dropped 407 rows colliding with test (anti-leakage).
+18:15:53 | INFO |   [efficientnet_b0 p100 f2] best_val_f1=1.0000
+18:17:15 | INFO |   [mobilenet_v3 p100 f2] best_val_f1=1.0000
+18:17:16 | WARNING | fewshot_5 fold3: dropped 26 rows colliding with test (anti-leakage).
+18:17:55 | INFO |   [efficientnet_b0 p5 f3] best_val_f1=0.9135
+18:18:31 | INFO |   [mobilenet_v3 p5 f3] best_val_f1=0.6263
+18:18:32 | WARNING | fewshot_10 fold3: dropped 41 rows colliding with test (anti-leakage).
+18:19:15 | INFO |   [efficientnet_b0 p10 f3] best_val_f1=0.9694
+18:19:57 | INFO |   [mobilenet_v3 p10 f3] best_val_f1=0.9474
+18:19:58 | WARNING | fewshot_20 fold3: dropped 81 rows colliding with test (anti-leakage).
+18:20:44 | INFO |   [efficientnet_b0 p20 f3] best_val_f1=0.9845
+18:21:39 | INFO |   [mobilenet_v3 p20 f3] best_val_f1=0.9845
+18:21:40 | WARNING | fewshot_50 fold3: dropped 198 rows colliding with test (anti-leakage).
+18:23:00 | INFO |   [efficientnet_b0 p50 f3] best_val_f1=0.9896
+18:23:57 | INFO |   [mobilenet_v3 p50 f3] best_val_f1=0.9845
+18:23:58 | WARNING | fewshot_100 fold3: dropped 409 rows colliding with test (anti-leakage).
+18:26:34 | INFO |   [efficientnet_b0 p100 f3] best_val_f1=1.0000
+18:28:29 | INFO |   [mobilenet_v3 p100 f3] best_val_f1=1.0000
+18:28:30 | WARNING | fewshot_5 fold4: dropped 15 rows colliding with test (anti-leakage).
+18:29:08 | INFO |   [efficientnet_b0 p5 f4] best_val_f1=0.9388
+18:29:43 | INFO |   [mobilenet_v3 p5 f4] best_val_f1=0.6149
+18:29:44 | WARNING | fewshot_10 fold4: dropped 33 rows colliding with test (anti-leakage).
+18:30:35 | INFO |   [efficientnet_b0 p10 f4] best_val_f1=0.9741
+18:31:17 | INFO |   [mobilenet_v3 p10 f4] best_val_f1=0.9163
+18:31:18 | WARNING | fewshot_20 fold4: dropped 72 rows colliding with test (anti-leakage).
+18:32:03 | INFO |   [efficientnet_b0 p20 f4] best_val_f1=0.9845
+18:32:56 | INFO |   [mobilenet_v3 p20 f4] best_val_f1=0.9792
+18:32:57 | WARNING | fewshot_50 fold4: dropped 206 rows colliding with test (anti-leakage).
+18:34:16 | INFO |   [efficientnet_b0 p50 f4] best_val_f1=0.9896
+18:35:30 | INFO |   [mobilenet_v3 p50 f4] best_val_f1=0.9896
+18:35:31 | WARNING | fewshot_100 fold4: dropped 400 rows colliding with test (anti-leakage).
+18:38:25 | INFO |   [efficientnet_b0 p100 f4] best_val_f1=1.0000
+18:40:17 | INFO |   [mobilenet_v3 p100 f4] best_val_f1=0.9948
+18:40:18 | WARNING | fewshot_5 fold5: dropped 24 rows colliding with test (anti-leakage).
+18:40:57 | INFO |   [efficientnet_b0 p5 f5] best_val_f1=0.9254
+18:41:32 | INFO |   [mobilenet_v3 p5 f5] best_val_f1=0.7041
+18:41:33 | WARNING | fewshot_10 fold5: dropped 46 rows colliding with test (anti-leakage).
+18:42:20 | INFO |   [efficientnet_b0 p10 f5] best_val_f1=0.9641
+18:43:00 | INFO |   [mobilenet_v3 p10 f5] best_val_f1=0.8942
+18:43:01 | WARNING | fewshot_20 fold5: dropped 86 rows colliding with test (anti-leakage).
+18:44:07 | INFO |   [efficientnet_b0 p20 f5] best_val_f1=0.9896
+18:44:58 | INFO |   [mobilenet_v3 p20 f5] best_val_f1=0.9741
+18:45:00 | WARNING | fewshot_50 fold5: dropped 197 rows colliding with test (anti-leakage).
+18:46:28 | INFO |   [efficientnet_b0 p50 f5] best_val_f1=0.9896
+18:47:35 | INFO |   [mobilenet_v3 p50 f5] best_val_f1=0.9845
+18:47:36 | WARNING | fewshot_100 fold5: dropped 408 rows colliding with test (anti-leakage).
+18:49:26 | INFO |   [efficientnet_b0 p100 f5] best_val_f1=0.9948
+18:51:05 | INFO |   [mobilenet_v3 p100 f5] best_val_f1=0.9948
+18:51:07 | INFO | Saved fewshot_results.csv + fewshot_summary.csv + curves

@@ -1,0 +1,374 @@
+17:04:22 | INFO | Centralized CV | backbone=resnet50 folds=[1] loss=weighted_ce ft=full | device=cuda
+17:04:22 | INFO | Fold 1: train=1624 test=402 | clients=6 val_patients=2 (['10', '2'])
+17:04:44 | INFO |   [resnet50 f1] ep 001/30 loss=0.1180 val_f1=0.9787 val_acc=0.9902 val_auc=0.9981
+17:04:58 | INFO |   [resnet50 f1] ep 002/30 loss=0.0317 val_f1=0.9677 val_acc=0.9853 val_auc=0.9982
+17:05:12 | INFO |   [resnet50 f1] ep 003/30 loss=0.0268 val_f1=0.9891 val_acc=0.9951 val_auc=1.0000
+17:05:26 | INFO |   [resnet50 f1] ep 004/30 loss=0.0388 val_f1=0.9780 val_acc=0.9902 val_auc=0.9985
+17:05:41 | INFO |   [resnet50 f1] ep 005/30 loss=0.0285 val_f1=0.9838 val_acc=0.9926 val_auc=0.9992
+17:05:55 | INFO |   [resnet50 f1] ep 006/30 loss=0.0162 val_f1=0.9785 val_acc=0.9902 val_auc=0.9990
+17:06:10 | INFO |   [resnet50 f1] ep 007/30 loss=0.0177 val_f1=0.9838 val_acc=0.9926 val_auc=0.9990
+17:06:25 | INFO |   [resnet50 f1] ep 008/30 loss=0.0159 val_f1=0.9891 val_acc=0.9951 val_auc=0.9998
+17:06:41 | INFO |   [resnet50 f1] ep 009/30 loss=0.0061 val_f1=0.9891 val_acc=0.9951 val_auc=0.9999
+17:06:57 | INFO |   [resnet50 f1] ep 010/30 loss=0.0087 val_f1=0.9891 val_acc=0.9951 val_auc=0.9998
+17:07:13 | INFO |   [resnet50 f1] ep 011/30 loss=0.0025 val_f1=0.9892 val_acc=0.9951 val_auc=0.9999
+17:07:29 | INFO |   [resnet50 f1] ep 012/30 loss=0.0162 val_f1=0.9836 val_acc=0.9926 val_auc=0.9986
+17:07:44 | INFO |   [resnet50 f1] ep 013/30 loss=0.0031 val_f1=0.9891 val_acc=0.9951 val_auc=0.9992
+17:08:00 | INFO |   [resnet50 f1] ep 014/30 loss=0.0022 val_f1=0.9724 val_acc=0.9877 val_auc=0.9991
+17:08:16 | INFO |   [resnet50 f1] ep 015/30 loss=0.0074 val_f1=0.9724 val_acc=0.9877 val_auc=0.9987
+17:08:32 | INFO |   [resnet50 f1] ep 016/30 loss=0.0057 val_f1=0.9836 val_acc=0.9926 val_auc=0.9946
+17:08:48 | INFO |   [resnet50 f1] ep 017/30 loss=0.0099 val_f1=0.9836 val_acc=0.9926 val_auc=0.9995
+17:09:03 | INFO |   [resnet50 f1] ep 018/30 loss=0.0053 val_f1=0.9836 val_acc=0.9926 val_auc=0.9995
+17:09:19 | INFO |   [resnet50 f1] ep 019/30 loss=0.0030 val_f1=0.9836 val_acc=0.9926 val_auc=0.9997
+17:09:35 | INFO |   [resnet50 f1] ep 020/30 loss=0.0016 val_f1=0.9836 val_acc=0.9926 val_auc=0.9998
+17:09:50 | INFO |   [resnet50 f1] ep 021/30 loss=0.0016 val_f1=0.9836 val_acc=0.9926 val_auc=0.9998
+17:09:50 | INFO |   early stop @ epoch 21 (no val-F1 gain for 10)
+17:09:59 | INFO | Fold 1 TEST f1=0.9794 acc=0.9900 auc=0.9881 ece=0.0082 (best val_f1=0.9892)
+17:09:59 | INFO | Saved results/centralized_results.csv and results/centralized_summary.csv
+17:10:07 | INFO | Centralized CV | backbone=resnet50 folds=[1, 2, 3, 4, 5] loss=weighted_ce ft=full | device=cuda
+17:10:07 | INFO | Fold 1: train=1624 test=402 | clients=6 val_patients=2 (['3', '8'])
+17:10:29 | INFO |   [resnet50 f1] ep 001/30 loss=0.1337 val_f1=0.9529 val_acc=0.9804 val_auc=0.9944
+17:10:45 | INFO |   [resnet50 f1] ep 002/30 loss=0.0278 val_f1=0.9412 val_acc=0.9756 val_auc=0.9941
+17:11:01 | INFO |   [resnet50 f1] ep 003/30 loss=0.0375 val_f1=0.9591 val_acc=0.9829 val_auc=0.9949
+17:11:16 | INFO |   [resnet50 f1] ep 004/30 loss=0.0192 val_f1=0.9011 val_acc=0.9560 val_auc=0.9959
+17:11:31 | INFO |   [resnet50 f1] ep 005/30 loss=0.0208 val_f1=0.9591 val_acc=0.9829 val_auc=0.9953
+17:11:47 | INFO |   [resnet50 f1] ep 006/30 loss=0.0238 val_f1=0.9474 val_acc=0.9780 val_auc=0.9949
+17:12:02 | INFO |   [resnet50 f1] ep 007/30 loss=0.0105 val_f1=0.9419 val_acc=0.9756 val_auc=0.9937
+17:12:18 | INFO |   [resnet50 f1] ep 008/30 loss=0.0117 val_f1=0.9474 val_acc=0.9780 val_auc=0.9951
+17:12:33 | INFO |   [resnet50 f1] ep 009/30 loss=0.0065 val_f1=0.9535 val_acc=0.9804 val_auc=0.9943
+17:12:48 | INFO |   [resnet50 f1] ep 010/30 loss=0.0074 val_f1=0.9467 val_acc=0.9780 val_auc=0.9944
+17:13:04 | INFO |   [resnet50 f1] ep 011/30 loss=0.0072 val_f1=0.9425 val_acc=0.9756 val_auc=0.9944
+17:13:19 | INFO |   [resnet50 f1] ep 012/30 loss=0.0038 val_f1=0.9425 val_acc=0.9756 val_auc=0.9949
+17:13:35 | INFO |   [resnet50 f1] ep 013/30 loss=0.0034 val_f1=0.9586 val_acc=0.9829 val_auc=0.9941
+17:13:35 | INFO |   early stop @ epoch 13 (no val-F1 gain for 10)
+17:13:43 | INFO | Fold 1 TEST f1=0.9794 acc=0.9900 auc=0.9880 ece=0.0099 (best val_f1=0.9591)
+17:13:43 | INFO | Fold 2: train=1619 test=407 | clients=6 val_patients=2 (['4', '9'])
+17:13:59 | INFO |   [resnet50 f2] ep 001/30 loss=0.1228 val_f1=0.9796 val_acc=0.9900 val_auc=0.9949
+17:14:16 | INFO |   [resnet50 f2] ep 002/30 loss=0.0287 val_f1=0.9744 val_acc=0.9876 val_auc=0.9975
+17:14:32 | INFO |   [resnet50 f2] ep 003/30 loss=0.0455 val_f1=0.9645 val_acc=0.9826 val_auc=0.9958
+17:14:47 | INFO |   [resnet50 f2] ep 004/30 loss=0.0323 val_f1=0.9794 val_acc=0.9900 val_auc=0.9847
+17:15:03 | INFO |   [resnet50 f2] ep 005/30 loss=0.0253 val_f1=0.9794 val_acc=0.9900 val_auc=0.9949
+17:15:19 | INFO |   [resnet50 f2] ep 006/30 loss=0.0131 val_f1=0.9744 val_acc=0.9876 val_auc=0.9964
+17:15:35 | INFO |   [resnet50 f2] ep 007/30 loss=0.0185 val_f1=0.9794 val_acc=0.9900 val_auc=0.9941
+17:15:50 | INFO |   [resnet50 f2] ep 008/30 loss=0.0087 val_f1=0.9746 val_acc=0.9876 val_auc=0.9948
+17:16:06 | INFO |   [resnet50 f2] ep 009/30 loss=0.0176 val_f1=0.9741 val_acc=0.9876 val_auc=0.9943
+17:16:22 | INFO |   [resnet50 f2] ep 010/30 loss=0.0119 val_f1=0.9897 val_acc=0.9950 val_auc=0.9902
+17:16:38 | INFO |   [resnet50 f2] ep 011/30 loss=0.0102 val_f1=0.9744 val_acc=0.9876 val_auc=0.9967
+17:16:54 | INFO |   [resnet50 f2] ep 012/30 loss=0.0035 val_f1=0.9794 val_acc=0.9900 val_auc=0.9924
+17:17:09 | INFO |   [resnet50 f2] ep 013/30 loss=0.0035 val_f1=0.9741 val_acc=0.9876 val_auc=0.9947
+17:17:25 | INFO |   [resnet50 f2] ep 014/30 loss=0.0020 val_f1=0.9741 val_acc=0.9876 val_auc=0.9944
+17:17:41 | INFO |   [resnet50 f2] ep 015/30 loss=0.0007 val_f1=0.9794 val_acc=0.9900 val_auc=0.9959
+17:17:57 | INFO |   [resnet50 f2] ep 016/30 loss=0.0010 val_f1=0.9688 val_acc=0.9851 val_auc=0.9940
+17:18:12 | INFO |   [resnet50 f2] ep 017/30 loss=0.0009 val_f1=0.9688 val_acc=0.9851 val_auc=0.9946
+17:18:28 | INFO |   [resnet50 f2] ep 018/30 loss=0.0017 val_f1=0.9794 val_acc=0.9900 val_auc=0.9979
+17:18:44 | INFO |   [resnet50 f2] ep 019/30 loss=0.0033 val_f1=0.9741 val_acc=0.9876 val_auc=0.9956
+17:19:00 | INFO |   [resnet50 f2] ep 020/30 loss=0.0004 val_f1=0.9794 val_acc=0.9900 val_auc=0.9947
+17:19:00 | INFO |   early stop @ epoch 20 (no val-F1 gain for 10)
+17:19:08 | INFO | Fold 2 TEST f1=0.9800 acc=0.9902 auc=0.9983 ece=0.0085 (best val_f1=0.9897)
+17:19:08 | INFO | Fold 3: train=1617 test=409 | clients=6 val_patients=2 (['4', '9'])
+17:19:24 | INFO |   [resnet50 f3] ep 001/30 loss=0.1391 val_f1=0.9505 val_acc=0.9751 val_auc=0.9973
+17:19:40 | INFO |   [resnet50 f3] ep 002/30 loss=0.0407 val_f1=0.9796 val_acc=0.9900 val_auc=0.9847
+17:19:56 | INFO |   [resnet50 f3] ep 003/30 loss=0.0177 val_f1=0.9741 val_acc=0.9876 val_auc=0.9963
+17:20:11 | INFO |   [resnet50 f3] ep 004/30 loss=0.0377 val_f1=0.8889 val_acc=0.9403 val_auc=0.9936
+17:20:26 | INFO |   [resnet50 f3] ep 005/30 loss=0.0379 val_f1=0.9794 val_acc=0.9900 val_auc=0.9943
+17:20:42 | INFO |   [resnet50 f3] ep 006/30 loss=0.0236 val_f1=0.9846 val_acc=0.9925 val_auc=0.9946
+17:20:58 | INFO |   [resnet50 f3] ep 007/30 loss=0.0074 val_f1=0.9741 val_acc=0.9876 val_auc=0.9959
+17:21:13 | INFO |   [resnet50 f3] ep 008/30 loss=0.0160 val_f1=0.9794 val_acc=0.9900 val_auc=0.9908
+17:21:28 | INFO |   [resnet50 f3] ep 009/30 loss=0.0171 val_f1=0.9741 val_acc=0.9876 val_auc=0.9956
+17:21:44 | INFO |   [resnet50 f3] ep 010/30 loss=0.0043 val_f1=0.9794 val_acc=0.9900 val_auc=0.9952
+17:21:59 | INFO |   [resnet50 f3] ep 011/30 loss=0.0057 val_f1=0.9794 val_acc=0.9900 val_auc=0.9953
+17:22:14 | INFO |   [resnet50 f3] ep 012/30 loss=0.0046 val_f1=0.9794 val_acc=0.9900 val_auc=0.9917
+17:22:30 | INFO |   [resnet50 f3] ep 013/30 loss=0.0041 val_f1=0.9794 val_acc=0.9900 val_auc=0.9933
+17:22:45 | INFO |   [resnet50 f3] ep 014/30 loss=0.0024 val_f1=0.9794 val_acc=0.9900 val_auc=0.9952
+17:23:01 | INFO |   [resnet50 f3] ep 015/30 loss=0.0011 val_f1=0.9794 val_acc=0.9900 val_auc=0.9936
+17:23:16 | INFO |   [resnet50 f3] ep 016/30 loss=0.0010 val_f1=0.9794 val_acc=0.9900 val_auc=0.9933
+17:23:16 | INFO |   early stop @ epoch 16 (no val-F1 gain for 10)
+17:23:24 | INFO | Fold 3 TEST f1=0.9535 acc=0.9804 auc=0.9946 ece=0.0207 (best val_f1=0.9846)
+17:23:24 | INFO | Fold 4: train=1626 test=400 | clients=6 val_patients=2 (['3', '9'])
+17:23:40 | INFO |   [resnet50 f4] ep 001/30 loss=0.1178 val_f1=0.8923 val_acc=0.9479 val_auc=0.9940
+17:23:57 | INFO |   [resnet50 f4] ep 002/30 loss=0.0435 val_f1=0.9405 val_acc=0.9727 val_auc=0.9931
+17:24:13 | INFO |   [resnet50 f4] ep 003/30 loss=0.0320 val_f1=0.9609 val_acc=0.9826 val_auc=0.9939
+17:24:29 | INFO |   [resnet50 f4] ep 004/30 loss=0.0227 val_f1=0.9613 val_acc=0.9826 val_auc=0.9934
+17:24:45 | INFO |   [resnet50 f4] ep 005/30 loss=0.0241 val_f1=0.9560 val_acc=0.9801 val_auc=0.9919
+17:25:01 | INFO |   [resnet50 f4] ep 006/30 loss=0.0259 val_f1=0.9667 val_acc=0.9851 val_auc=0.9930
+17:25:17 | INFO |   [resnet50 f4] ep 007/30 loss=0.0258 val_f1=0.9560 val_acc=0.9801 val_auc=0.9919
+17:25:33 | INFO |   [resnet50 f4] ep 008/30 loss=0.0137 val_f1=0.9457 val_acc=0.9752 val_auc=0.9913
+17:25:48 | INFO |   [resnet50 f4] ep 009/30 loss=0.0398 val_f1=0.9560 val_acc=0.9801 val_auc=0.9913
+17:26:04 | INFO |   [resnet50 f4] ep 010/30 loss=0.0098 val_f1=0.9667 val_acc=0.9851 val_auc=0.9924
+17:26:20 | INFO |   [resnet50 f4] ep 011/30 loss=0.0086 val_f1=0.9508 val_acc=0.9777 val_auc=0.9909
+17:26:36 | INFO |   [resnet50 f4] ep 012/30 loss=0.0098 val_f1=0.9667 val_acc=0.9851 val_auc=0.9929
+17:26:51 | INFO |   [resnet50 f4] ep 013/30 loss=0.0021 val_f1=0.9613 val_acc=0.9826 val_auc=0.9927
+17:27:07 | INFO |   [resnet50 f4] ep 014/30 loss=0.0028 val_f1=0.9721 val_acc=0.9876 val_auc=0.9924
+17:27:23 | INFO |   [resnet50 f4] ep 015/30 loss=0.0010 val_f1=0.9667 val_acc=0.9851 val_auc=0.9928
+17:27:39 | INFO |   [resnet50 f4] ep 016/30 loss=0.0020 val_f1=0.9721 val_acc=0.9876 val_auc=0.9926
+17:27:55 | INFO |   [resnet50 f4] ep 017/30 loss=0.0029 val_f1=0.9667 val_acc=0.9851 val_auc=0.9916
+17:28:11 | INFO |   [resnet50 f4] ep 018/30 loss=0.0029 val_f1=0.9721 val_acc=0.9876 val_auc=0.9928
+17:28:26 | INFO |   [resnet50 f4] ep 019/30 loss=0.0011 val_f1=0.9721 val_acc=0.9876 val_auc=0.9925
+17:28:42 | INFO |   [resnet50 f4] ep 020/30 loss=0.0008 val_f1=0.9721 val_acc=0.9876 val_auc=0.9921
+17:28:58 | INFO |   [resnet50 f4] ep 021/30 loss=0.0007 val_f1=0.9721 val_acc=0.9876 val_auc=0.9922
+17:29:14 | INFO |   [resnet50 f4] ep 022/30 loss=0.0014 val_f1=0.9721 val_acc=0.9876 val_auc=0.9921
+17:29:30 | INFO |   [resnet50 f4] ep 023/30 loss=0.0012 val_f1=0.9721 val_acc=0.9876 val_auc=0.9922
+17:29:46 | INFO |   [resnet50 f4] ep 024/30 loss=0.0009 val_f1=0.9721 val_acc=0.9876 val_auc=0.9920
+17:29:46 | INFO |   early stop @ epoch 24 (no val-F1 gain for 10)
+17:29:54 | INFO | Fold 4 TEST f1=0.9885 acc=0.9950 auc=0.9999 ece=0.0078 (best val_f1=0.9721)
+17:29:54 | INFO | Fold 5: train=1618 test=408 | clients=6 val_patients=2 (['4', '9'])
+17:30:10 | INFO |   [resnet50 f5] ep 001/30 loss=0.1002 val_f1=0.9394 val_acc=0.9701 val_auc=0.9943
+17:30:27 | INFO |   [resnet50 f5] ep 002/30 loss=0.0752 val_f1=0.9694 val_acc=0.9851 val_auc=0.9903
+17:30:43 | INFO |   [resnet50 f5] ep 003/30 loss=0.0297 val_f1=0.9741 val_acc=0.9876 val_auc=0.9927
+17:30:59 | INFO |   [resnet50 f5] ep 004/30 loss=0.0178 val_f1=0.9796 val_acc=0.9900 val_auc=0.9965
+17:31:15 | INFO |   [resnet50 f5] ep 005/30 loss=0.0159 val_f1=0.9846 val_acc=0.9925 val_auc=0.9852
+17:31:30 | INFO |   [resnet50 f5] ep 006/30 loss=0.0145 val_f1=0.9794 val_acc=0.9900 val_auc=0.9955
+17:31:46 | INFO |   [resnet50 f5] ep 007/30 loss=0.0203 val_f1=0.9846 val_acc=0.9925 val_auc=0.9957
+17:32:02 | INFO |   [resnet50 f5] ep 008/30 loss=0.0141 val_f1=0.9796 val_acc=0.9900 val_auc=0.9968
+17:32:18 | INFO |   [resnet50 f5] ep 009/30 loss=0.0161 val_f1=0.9744 val_acc=0.9876 val_auc=0.9969
+17:32:34 | INFO |   [resnet50 f5] ep 010/30 loss=0.0096 val_f1=0.9846 val_acc=0.9925 val_auc=0.9949
+17:32:49 | INFO |   [resnet50 f5] ep 011/30 loss=0.0134 val_f1=0.9583 val_acc=0.9801 val_auc=0.9963
+17:33:05 | INFO |   [resnet50 f5] ep 012/30 loss=0.0215 val_f1=0.9741 val_acc=0.9876 val_auc=0.9895
+17:33:21 | INFO |   [resnet50 f5] ep 013/30 loss=0.0119 val_f1=0.9794 val_acc=0.9900 val_auc=0.9959
+17:33:37 | INFO |   [resnet50 f5] ep 014/30 loss=0.0121 val_f1=0.9794 val_acc=0.9900 val_auc=0.9959
+17:33:53 | INFO |   [resnet50 f5] ep 015/30 loss=0.0094 val_f1=0.9794 val_acc=0.9900 val_auc=0.9954
+17:33:53 | INFO |   early stop @ epoch 15 (no val-F1 gain for 10)
+17:34:01 | INFO | Fold 5 TEST f1=0.9838 acc=0.9926 auc=0.9998 ece=0.0076 (best val_f1=0.9846)
+17:34:01 | INFO | Saved results/centralized_results.csv and results/centralized_summary.csv
+17:34:07 | INFO | Centralized CV | backbone=efficientnet_b0 folds=[1, 2, 3, 4, 5] loss=weighted_ce ft=full | device=cuda
+17:34:07 | INFO | Fold 1: train=1624 test=402 | clients=6 val_patients=2 (['2', '7'])
+17:34:28 | INFO |   [efficientnet_b0 f1] ep 001/30 loss=0.3122 val_f1=0.8807 val_acc=0.9366 val_auc=0.9991
+17:34:35 | INFO |   [efficientnet_b0 f1] ep 002/30 loss=0.1010 val_f1=0.9505 val_acc=0.9756 val_auc=0.9997
+17:34:43 | INFO |   [efficientnet_b0 f1] ep 003/30 loss=0.0629 val_f1=0.9648 val_acc=0.9829 val_auc=0.9998
+17:34:50 | INFO |   [efficientnet_b0 f1] ep 004/30 loss=0.0478 val_f1=0.9896 val_acc=0.9951 val_auc=0.9998
+17:34:57 | INFO |   [efficientnet_b0 f1] ep 005/30 loss=0.0408 val_f1=0.9843 val_acc=0.9927 val_auc=0.9997
+17:35:04 | INFO |   [efficientnet_b0 f1] ep 006/30 loss=0.0318 val_f1=0.9794 val_acc=0.9902 val_auc=0.9997
+17:35:12 | INFO |   [efficientnet_b0 f1] ep 007/30 loss=0.0192 val_f1=0.9896 val_acc=0.9951 val_auc=0.9997
+17:35:19 | INFO |   [efficientnet_b0 f1] ep 008/30 loss=0.0168 val_f1=0.9843 val_acc=0.9927 val_auc=0.9998
+17:35:26 | INFO |   [efficientnet_b0 f1] ep 009/30 loss=0.0198 val_f1=0.9896 val_acc=0.9951 val_auc=0.9997
+17:35:33 | INFO |   [efficientnet_b0 f1] ep 010/30 loss=0.0260 val_f1=0.9896 val_acc=0.9951 val_auc=0.9998
+17:35:40 | INFO |   [efficientnet_b0 f1] ep 011/30 loss=0.0135 val_f1=0.9896 val_acc=0.9951 val_auc=0.9996
+17:35:48 | INFO |   [efficientnet_b0 f1] ep 012/30 loss=0.0082 val_f1=0.9896 val_acc=0.9951 val_auc=0.9996
+17:35:55 | INFO |   [efficientnet_b0 f1] ep 013/30 loss=0.0133 val_f1=0.9896 val_acc=0.9951 val_auc=0.9994
+17:36:02 | INFO |   [efficientnet_b0 f1] ep 014/30 loss=0.0087 val_f1=0.9896 val_acc=0.9951 val_auc=0.9994
+17:36:02 | INFO |   early stop @ epoch 14 (no val-F1 gain for 10)
+17:36:10 | INFO | Fold 1 TEST f1=0.9648 acc=0.9826 auc=0.9954 ece=0.0273 (best val_f1=0.9896)
+17:36:10 | INFO | Fold 2: train=1619 test=407 | clients=6 val_patients=2 (['3', '8'])
+17:36:18 | INFO |   [efficientnet_b0 f2] ep 001/30 loss=0.2796 val_f1=0.8632 val_acc=0.9364 val_auc=0.9914
+17:36:25 | INFO |   [efficientnet_b0 f2] ep 002/30 loss=0.0883 val_f1=0.9061 val_acc=0.9584 val_auc=0.9926
+17:36:32 | INFO |   [efficientnet_b0 f2] ep 003/30 loss=0.0511 val_f1=0.8865 val_acc=0.9487 val_auc=0.9927
+17:36:40 | INFO |   [efficientnet_b0 f2] ep 004/30 loss=0.0391 val_f1=0.9310 val_acc=0.9707 val_auc=0.9924
+17:36:47 | INFO |   [efficientnet_b0 f2] ep 005/30 loss=0.0325 val_f1=0.9266 val_acc=0.9682 val_auc=0.9932
+17:36:54 | INFO |   [efficientnet_b0 f2] ep 006/30 loss=0.0361 val_f1=0.9371 val_acc=0.9731 val_auc=0.9936
+17:37:01 | INFO |   [efficientnet_b0 f2] ep 007/30 loss=0.0222 val_f1=0.9535 val_acc=0.9804 val_auc=0.9944
+17:37:09 | INFO |   [efficientnet_b0 f2] ep 008/30 loss=0.0234 val_f1=0.9162 val_acc=0.9633 val_auc=0.9938
+17:37:16 | INFO |   [efficientnet_b0 f2] ep 009/30 loss=0.0207 val_f1=0.9704 val_acc=0.9878 val_auc=0.9940
+17:37:23 | INFO |   [efficientnet_b0 f2] ep 010/30 loss=0.0221 val_f1=0.9318 val_acc=0.9707 val_auc=0.9934
+17:37:30 | INFO |   [efficientnet_b0 f2] ep 011/30 loss=0.0154 val_f1=0.9162 val_acc=0.9633 val_auc=0.9930
+17:37:37 | INFO |   [efficientnet_b0 f2] ep 012/30 loss=0.0143 val_f1=0.9647 val_acc=0.9853 val_auc=0.9939
+17:37:44 | INFO |   [efficientnet_b0 f2] ep 013/30 loss=0.0086 val_f1=0.9647 val_acc=0.9853 val_auc=0.9938
+17:37:51 | INFO |   [efficientnet_b0 f2] ep 014/30 loss=0.0127 val_f1=0.9591 val_acc=0.9829 val_auc=0.9934
+17:37:59 | INFO |   [efficientnet_b0 f2] ep 015/30 loss=0.0172 val_f1=0.9591 val_acc=0.9829 val_auc=0.9936
+17:38:06 | INFO |   [efficientnet_b0 f2] ep 016/30 loss=0.0055 val_f1=0.9647 val_acc=0.9853 val_auc=0.9934
+17:38:13 | INFO |   [efficientnet_b0 f2] ep 017/30 loss=0.0053 val_f1=0.9647 val_acc=0.9853 val_auc=0.9936
+17:38:20 | INFO |   [efficientnet_b0 f2] ep 018/30 loss=0.0061 val_f1=0.9647 val_acc=0.9853 val_auc=0.9936
+17:38:28 | INFO |   [efficientnet_b0 f2] ep 019/30 loss=0.0037 val_f1=0.9535 val_acc=0.9804 val_auc=0.9935
+17:38:28 | INFO |   early stop @ epoch 19 (no val-F1 gain for 10)
+17:38:35 | INFO | Fold 2 TEST f1=0.9754 acc=0.9877 auc=0.9985 ece=0.0135 (best val_f1=0.9704)
+17:38:35 | INFO | Fold 3: train=1617 test=409 | clients=6 val_patients=2 (['2', '7'])
+17:38:43 | INFO |   [efficientnet_b0 f3] ep 001/30 loss=0.2982 val_f1=0.8807 val_acc=0.9366 val_auc=0.9987
+17:38:50 | INFO |   [efficientnet_b0 f3] ep 002/30 loss=0.0971 val_f1=0.9548 val_acc=0.9780 val_auc=0.9995
+17:38:57 | INFO |   [efficientnet_b0 f3] ep 003/30 loss=0.0548 val_f1=0.9845 val_acc=0.9927 val_auc=0.9997
+17:39:05 | INFO |   [efficientnet_b0 f3] ep 004/30 loss=0.0317 val_f1=0.9500 val_acc=0.9756 val_auc=0.9993
+17:39:12 | INFO |   [efficientnet_b0 f3] ep 005/30 loss=0.0285 val_f1=0.9645 val_acc=0.9829 val_auc=0.9994
+17:39:19 | INFO |   [efficientnet_b0 f3] ep 006/30 loss=0.0321 val_f1=0.9500 val_acc=0.9756 val_auc=0.9990
+17:39:26 | INFO |   [efficientnet_b0 f3] ep 007/30 loss=0.0249 val_f1=0.9596 val_acc=0.9805 val_auc=0.9992
+17:39:33 | INFO |   [efficientnet_b0 f3] ep 008/30 loss=0.0191 val_f1=0.9548 val_acc=0.9780 val_auc=0.9992
+17:39:40 | INFO |   [efficientnet_b0 f3] ep 009/30 loss=0.0150 val_f1=0.9500 val_acc=0.9756 val_auc=0.9992
+17:39:48 | INFO |   [efficientnet_b0 f3] ep 010/30 loss=0.0091 val_f1=0.9548 val_acc=0.9780 val_auc=0.9984
+17:39:55 | INFO |   [efficientnet_b0 f3] ep 011/30 loss=0.0110 val_f1=0.9596 val_acc=0.9805 val_auc=0.9992
+17:40:02 | INFO |   [efficientnet_b0 f3] ep 012/30 loss=0.0114 val_f1=0.9548 val_acc=0.9780 val_auc=0.9990
+17:40:09 | INFO |   [efficientnet_b0 f3] ep 013/30 loss=0.0056 val_f1=0.9596 val_acc=0.9805 val_auc=0.9992
+17:40:09 | INFO |   early stop @ epoch 13 (no val-F1 gain for 10)
+17:40:17 | INFO | Fold 3 TEST f1=0.9647 acc=0.9853 auc=0.9946 ece=0.0661 (best val_f1=0.9845)
+17:40:17 | INFO | Fold 4: train=1626 test=400 | clients=6 val_patients=2 (['2', '8'])
+17:40:25 | INFO |   [efficientnet_b0 f4] ep 001/30 loss=0.2823 val_f1=0.9492 val_acc=0.9782 val_auc=0.9979
+17:40:32 | INFO |   [efficientnet_b0 f4] ep 002/30 loss=0.1006 val_f1=0.9053 val_acc=0.9564 val_auc=0.9979
+17:40:39 | INFO |   [efficientnet_b0 f4] ep 003/30 loss=0.0492 val_f1=0.9609 val_acc=0.9831 val_auc=0.9989
+17:40:47 | INFO |   [efficientnet_b0 f4] ep 004/30 loss=0.0299 val_f1=0.9767 val_acc=0.9903 val_auc=0.9984
+17:40:54 | INFO |   [efficientnet_b0 f4] ep 005/30 loss=0.0342 val_f1=0.9827 val_acc=0.9927 val_auc=0.9985
+17:41:02 | INFO |   [efficientnet_b0 f4] ep 006/30 loss=0.0181 val_f1=0.9885 val_acc=0.9952 val_auc=0.9989
+17:41:09 | INFO |   [efficientnet_b0 f4] ep 007/30 loss=0.0339 val_f1=0.9829 val_acc=0.9927 val_auc=0.9992
+17:41:16 | INFO |   [efficientnet_b0 f4] ep 008/30 loss=0.0254 val_f1=0.9492 val_acc=0.9782 val_auc=0.9980
+17:41:24 | INFO |   [efficientnet_b0 f4] ep 009/30 loss=0.0352 val_f1=0.9318 val_acc=0.9709 val_auc=0.9951
+17:41:31 | INFO |   [efficientnet_b0 f4] ep 010/30 loss=0.0197 val_f1=0.9486 val_acc=0.9782 val_auc=0.9974
+17:41:38 | INFO |   [efficientnet_b0 f4] ep 011/30 loss=0.0185 val_f1=0.9595 val_acc=0.9831 val_auc=0.9975
+17:41:46 | INFO |   [efficientnet_b0 f4] ep 012/30 loss=0.0113 val_f1=0.9341 val_acc=0.9709 val_auc=0.9965
+17:41:53 | INFO |   [efficientnet_b0 f4] ep 013/30 loss=0.0139 val_f1=0.9595 val_acc=0.9831 val_auc=0.9976
+17:42:00 | INFO |   [efficientnet_b0 f4] ep 014/30 loss=0.0109 val_f1=0.9655 val_acc=0.9855 val_auc=0.9978
+17:42:07 | INFO |   [efficientnet_b0 f4] ep 015/30 loss=0.0128 val_f1=0.9333 val_acc=0.9709 val_auc=0.9966
+17:42:15 | INFO |   [efficientnet_b0 f4] ep 016/30 loss=0.0204 val_f1=0.9600 val_acc=0.9831 val_auc=0.9970
+17:42:15 | INFO |   early stop @ epoch 16 (no val-F1 gain for 10)
+17:42:23 | INFO | Fold 4 TEST f1=0.9663 acc=0.9850 auc=1.0000 ece=0.0276 (best val_f1=0.9885)
+17:42:23 | INFO | Fold 5: train=1618 test=408 | clients=6 val_patients=2 (['3', '8'])
+17:42:30 | INFO |   [efficientnet_b0 f5] ep 001/30 loss=0.3338 val_f1=0.8542 val_acc=0.9315 val_auc=0.9940
+17:42:37 | INFO |   [efficientnet_b0 f5] ep 002/30 loss=0.0716 val_f1=0.9371 val_acc=0.9731 val_auc=0.9948
+17:42:45 | INFO |   [efficientnet_b0 f5] ep 003/30 loss=0.0687 val_f1=0.9425 val_acc=0.9756 val_auc=0.9947
+17:42:52 | INFO |   [efficientnet_b0 f5] ep 004/30 loss=0.0359 val_f1=0.9535 val_acc=0.9804 val_auc=0.9946
+17:42:59 | INFO |   [efficientnet_b0 f5] ep 005/30 loss=0.0260 val_f1=0.9257 val_acc=0.9682 val_auc=0.9947
+17:43:06 | INFO |   [efficientnet_b0 f5] ep 006/30 loss=0.0275 val_f1=0.9318 val_acc=0.9707 val_auc=0.9953
+17:43:14 | INFO |   [efficientnet_b0 f5] ep 007/30 loss=0.0240 val_f1=0.9371 val_acc=0.9731 val_auc=0.9955
+17:43:21 | INFO |   [efficientnet_b0 f5] ep 008/30 loss=0.0300 val_f1=0.9371 val_acc=0.9731 val_auc=0.9951
+17:43:28 | INFO |   [efficientnet_b0 f5] ep 009/30 loss=0.0158 val_f1=0.9101 val_acc=0.9609 val_auc=0.9945
+17:43:35 | INFO |   [efficientnet_b0 f5] ep 010/30 loss=0.0245 val_f1=0.9310 val_acc=0.9707 val_auc=0.9939
+17:43:42 | INFO |   [efficientnet_b0 f5] ep 011/30 loss=0.0093 val_f1=0.9701 val_acc=0.9878 val_auc=0.9945
+17:43:50 | INFO |   [efficientnet_b0 f5] ep 012/30 loss=0.0160 val_f1=0.9529 val_acc=0.9804 val_auc=0.9943
+17:43:57 | INFO |   [efficientnet_b0 f5] ep 013/30 loss=0.0133 val_f1=0.9643 val_acc=0.9853 val_auc=0.9955
+17:44:04 | INFO |   [efficientnet_b0 f5] ep 014/30 loss=0.0110 val_f1=0.9643 val_acc=0.9853 val_auc=0.9944
+17:44:11 | INFO |   [efficientnet_b0 f5] ep 015/30 loss=0.0126 val_f1=0.9643 val_acc=0.9853 val_auc=0.9955
+17:44:18 | INFO |   [efficientnet_b0 f5] ep 016/30 loss=0.0060 val_f1=0.9704 val_acc=0.9878 val_auc=0.9957
+17:44:26 | INFO |   [efficientnet_b0 f5] ep 017/30 loss=0.0061 val_f1=0.9647 val_acc=0.9853 val_auc=0.9956
+17:44:33 | INFO |   [efficientnet_b0 f5] ep 018/30 loss=0.0071 val_f1=0.9643 val_acc=0.9853 val_auc=0.9949
+17:44:40 | INFO |   [efficientnet_b0 f5] ep 019/30 loss=0.0112 val_f1=0.9586 val_acc=0.9829 val_auc=0.9949
+17:44:47 | INFO |   [efficientnet_b0 f5] ep 020/30 loss=0.0046 val_f1=0.9586 val_acc=0.9829 val_auc=0.9949
+17:44:54 | INFO |   [efficientnet_b0 f5] ep 021/30 loss=0.0053 val_f1=0.9701 val_acc=0.9878 val_auc=0.9950
+17:45:02 | INFO |   [efficientnet_b0 f5] ep 022/30 loss=0.0058 val_f1=0.9586 val_acc=0.9829 val_auc=0.9950
+17:45:09 | INFO |   [efficientnet_b0 f5] ep 023/30 loss=0.0049 val_f1=0.9586 val_acc=0.9829 val_auc=0.9948
+17:45:16 | INFO |   [efficientnet_b0 f5] ep 024/30 loss=0.0038 val_f1=0.9586 val_acc=0.9829 val_auc=0.9947
+17:45:23 | INFO |   [efficientnet_b0 f5] ep 025/30 loss=0.0042 val_f1=0.9586 val_acc=0.9829 val_auc=0.9946
+17:45:30 | INFO |   [efficientnet_b0 f5] ep 026/30 loss=0.0035 val_f1=0.9586 val_acc=0.9829 val_auc=0.9948
+17:45:30 | INFO |   early stop @ epoch 26 (no val-F1 gain for 10)
+17:45:38 | INFO | Fold 5 TEST f1=0.9733 acc=0.9877 auc=0.9984 ece=0.0116 (best val_f1=0.9704)
+17:45:38 | INFO | Saved results/centralized_results.csv and results/centralized_summary.csv
+17:45:45 | INFO | Centralized CV | backbone=mobilenet_v3 folds=[1, 2, 3, 4, 5] loss=weighted_ce ft=full | device=cuda
+17:45:45 | INFO | Fold 1: train=1624 test=402 | clients=6 val_patients=2 (['3', '7'])
+17:45:58 | INFO |   [mobilenet_v3 f1] ep 001/30 loss=0.2742 val_f1=0.6354 val_acc=0.7512 val_auc=0.9109
+17:46:03 | INFO |   [mobilenet_v3 f1] ep 002/30 loss=0.0769 val_f1=0.8764 val_acc=0.9458 val_auc=0.9813
+17:46:08 | INFO |   [mobilenet_v3 f1] ep 003/30 loss=0.0377 val_f1=0.9312 val_acc=0.9680 val_auc=0.9882
+17:46:13 | INFO |   [mobilenet_v3 f1] ep 004/30 loss=0.0457 val_f1=0.9278 val_acc=0.9655 val_auc=0.9898
+17:46:17 | INFO |   [mobilenet_v3 f1] ep 005/30 loss=0.0206 val_f1=0.9326 val_acc=0.9680 val_auc=0.9913
+17:46:22 | INFO |   [mobilenet_v3 f1] ep 006/30 loss=0.0265 val_f1=0.9626 val_acc=0.9828 val_auc=0.9924
+17:46:27 | INFO |   [mobilenet_v3 f1] ep 007/30 loss=0.0230 val_f1=0.9474 val_acc=0.9754 val_auc=0.9933
+17:46:32 | INFO |   [mobilenet_v3 f1] ep 008/30 loss=0.0136 val_f1=0.9574 val_acc=0.9803 val_auc=0.9933
+17:46:37 | INFO |   [mobilenet_v3 f1] ep 009/30 loss=0.0078 val_f1=0.9424 val_acc=0.9729 val_auc=0.9931
+17:46:41 | INFO |   [mobilenet_v3 f1] ep 010/30 loss=0.0180 val_f1=0.9326 val_acc=0.9680 val_auc=0.9936
+17:46:46 | INFO |   [mobilenet_v3 f1] ep 011/30 loss=0.0069 val_f1=0.9375 val_acc=0.9704 val_auc=0.9945
+17:46:51 | INFO |   [mobilenet_v3 f1] ep 012/30 loss=0.0052 val_f1=0.9424 val_acc=0.9729 val_auc=0.9949
+17:46:56 | INFO |   [mobilenet_v3 f1] ep 013/30 loss=0.0099 val_f1=0.9524 val_acc=0.9778 val_auc=0.9947
+17:47:00 | INFO |   [mobilenet_v3 f1] ep 014/30 loss=0.0056 val_f1=0.9574 val_acc=0.9803 val_auc=0.9949
+17:47:05 | INFO |   [mobilenet_v3 f1] ep 015/30 loss=0.0038 val_f1=0.9626 val_acc=0.9828 val_auc=0.9950
+17:47:10 | INFO |   [mobilenet_v3 f1] ep 016/30 loss=0.0025 val_f1=0.9626 val_acc=0.9828 val_auc=0.9952
+17:47:10 | INFO |   early stop @ epoch 16 (no val-F1 gain for 10)
+17:47:18 | INFO | Fold 1 TEST f1=0.9794 acc=0.9900 auc=0.9913 ece=0.0144 (best val_f1=0.9626)
+17:47:18 | INFO | Fold 2: train=1619 test=407 | clients=6 val_patients=2 (['4', '8'])
+17:47:23 | INFO |   [mobilenet_v3 f2] ep 001/30 loss=0.3367 val_f1=0.6585 val_acc=0.7941 val_auc=0.8946
+17:47:27 | INFO |   [mobilenet_v3 f2] ep 002/30 loss=0.0901 val_f1=0.8701 val_acc=0.9436 val_auc=0.9829
+17:47:32 | INFO |   [mobilenet_v3 f2] ep 003/30 loss=0.0620 val_f1=0.9381 val_acc=0.9706 val_auc=0.9919
+17:47:37 | INFO |   [mobilenet_v3 f2] ep 004/30 loss=0.0377 val_f1=0.9626 val_acc=0.9828 val_auc=0.9890
+17:47:41 | INFO |   [mobilenet_v3 f2] ep 005/30 loss=0.0308 val_f1=0.9783 val_acc=0.9902 val_auc=0.9843
+17:47:46 | INFO |   [mobilenet_v3 f2] ep 006/30 loss=0.0314 val_f1=0.9783 val_acc=0.9902 val_auc=0.9860
+17:47:51 | INFO |   [mobilenet_v3 f2] ep 007/30 loss=0.0117 val_f1=0.9838 val_acc=0.9926 val_auc=0.9841
+17:47:55 | INFO |   [mobilenet_v3 f2] ep 008/30 loss=0.0175 val_f1=0.9838 val_acc=0.9926 val_auc=0.9864
+17:48:00 | INFO |   [mobilenet_v3 f2] ep 009/30 loss=0.0163 val_f1=0.9783 val_acc=0.9902 val_auc=0.9832
+17:48:05 | INFO |   [mobilenet_v3 f2] ep 010/30 loss=0.0206 val_f1=0.9783 val_acc=0.9902 val_auc=0.9824
+17:48:09 | INFO |   [mobilenet_v3 f2] ep 011/30 loss=0.0184 val_f1=0.9730 val_acc=0.9877 val_auc=0.9886
+17:48:13 | INFO |   [mobilenet_v3 f2] ep 012/30 loss=0.0114 val_f1=0.9783 val_acc=0.9902 val_auc=0.9851
+17:48:18 | INFO |   [mobilenet_v3 f2] ep 013/30 loss=0.0129 val_f1=0.9783 val_acc=0.9902 val_auc=0.9824
+17:48:23 | INFO |   [mobilenet_v3 f2] ep 014/30 loss=0.0155 val_f1=0.9727 val_acc=0.9877 val_auc=0.9814
+17:48:27 | INFO |   [mobilenet_v3 f2] ep 015/30 loss=0.0090 val_f1=0.9783 val_acc=0.9902 val_auc=0.9815
+17:48:32 | INFO |   [mobilenet_v3 f2] ep 016/30 loss=0.0080 val_f1=0.9783 val_acc=0.9902 val_auc=0.9822
+17:48:37 | INFO |   [mobilenet_v3 f2] ep 017/30 loss=0.0102 val_f1=0.9727 val_acc=0.9877 val_auc=0.9804
+17:48:37 | INFO |   early stop @ epoch 17 (no val-F1 gain for 10)
+17:48:44 | INFO | Fold 2 TEST f1=0.9754 acc=0.9877 auc=0.9976 ece=0.0188 (best val_f1=0.9838)
+17:48:44 | INFO | Fold 3: train=1617 test=409 | clients=6 val_patients=2 (['4', '7'])
+17:48:49 | INFO |   [mobilenet_v3 f3] ep 001/30 loss=0.2875 val_f1=0.5580 val_acc=0.6049 val_auc=0.8772
+17:48:54 | INFO |   [mobilenet_v3 f3] ep 002/30 loss=0.1139 val_f1=0.7418 val_acc=0.8247 val_auc=0.9751
+17:48:58 | INFO |   [mobilenet_v3 f3] ep 003/30 loss=0.0619 val_f1=0.8772 val_acc=0.9309 val_auc=0.9913
+17:49:03 | INFO |   [mobilenet_v3 f3] ep 004/30 loss=0.0292 val_f1=0.8621 val_acc=0.9210 val_auc=0.9949
+17:49:08 | INFO |   [mobilenet_v3 f3] ep 005/30 loss=0.0263 val_f1=0.9174 val_acc=0.9556 val_auc=0.9949
+17:49:13 | INFO |   [mobilenet_v3 f3] ep 006/30 loss=0.0222 val_f1=0.9615 val_acc=0.9802 val_auc=0.9961
+17:49:17 | INFO |   [mobilenet_v3 f3] ep 007/30 loss=0.0188 val_f1=0.9756 val_acc=0.9877 val_auc=0.9956
+17:49:22 | INFO |   [mobilenet_v3 f3] ep 008/30 loss=0.0188 val_f1=0.9754 val_acc=0.9877 val_auc=0.9950
+17:49:27 | INFO |   [mobilenet_v3 f3] ep 009/30 loss=0.0101 val_f1=0.9754 val_acc=0.9877 val_auc=0.9954
+17:49:32 | INFO |   [mobilenet_v3 f3] ep 010/30 loss=0.0131 val_f1=0.9804 val_acc=0.9901 val_auc=0.9950
+17:49:36 | INFO |   [mobilenet_v3 f3] ep 011/30 loss=0.0105 val_f1=0.9703 val_acc=0.9852 val_auc=0.9924
+17:49:41 | INFO |   [mobilenet_v3 f3] ep 012/30 loss=0.0108 val_f1=0.9804 val_acc=0.9901 val_auc=0.9956
+17:49:45 | INFO |   [mobilenet_v3 f3] ep 013/30 loss=0.0031 val_f1=0.9804 val_acc=0.9901 val_auc=0.9954
+17:49:50 | INFO |   [mobilenet_v3 f3] ep 014/30 loss=0.0094 val_f1=0.9703 val_acc=0.9852 val_auc=0.9897
+17:49:55 | INFO |   [mobilenet_v3 f3] ep 015/30 loss=0.0071 val_f1=0.9703 val_acc=0.9852 val_auc=0.9957
+17:50:00 | INFO |   [mobilenet_v3 f3] ep 016/30 loss=0.0052 val_f1=0.9754 val_acc=0.9877 val_auc=0.9957
+17:50:04 | INFO |   [mobilenet_v3 f3] ep 017/30 loss=0.0083 val_f1=0.9652 val_acc=0.9827 val_auc=0.9957
+17:50:09 | INFO |   [mobilenet_v3 f3] ep 018/30 loss=0.0043 val_f1=0.9703 val_acc=0.9852 val_auc=0.9944
+17:50:14 | INFO |   [mobilenet_v3 f3] ep 019/30 loss=0.0071 val_f1=0.9754 val_acc=0.9877 val_auc=0.9946
+17:50:18 | INFO |   [mobilenet_v3 f3] ep 020/30 loss=0.0045 val_f1=0.9703 val_acc=0.9852 val_auc=0.9927
+17:50:18 | INFO |   early stop @ epoch 20 (no val-F1 gain for 10)
+17:50:26 | INFO | Fold 3 TEST f1=0.9371 acc=0.9731 auc=0.9955 ece=0.0340 (best val_f1=0.9804)
+17:50:26 | INFO | Fold 4: train=1626 test=400 | clients=6 val_patients=2 (['3', '8'])
+17:50:31 | INFO |   [mobilenet_v3 f4] ep 001/30 loss=0.2569 val_f1=0.7667 val_acc=0.8973 val_auc=0.9397
+17:50:36 | INFO |   [mobilenet_v3 f4] ep 002/30 loss=0.0894 val_f1=0.8377 val_acc=0.9242 val_auc=0.9866
+17:50:40 | INFO |   [mobilenet_v3 f4] ep 003/30 loss=0.0646 val_f1=0.9000 val_acc=0.9560 val_auc=0.9880
+17:50:45 | INFO |   [mobilenet_v3 f4] ep 004/30 loss=0.0362 val_f1=0.8587 val_acc=0.9364 val_auc=0.9898
+17:50:50 | INFO |   [mobilenet_v3 f4] ep 005/30 loss=0.0459 val_f1=0.8977 val_acc=0.9560 val_auc=0.9910
+17:50:54 | INFO |   [mobilenet_v3 f4] ep 006/30 loss=0.0321 val_f1=0.9091 val_acc=0.9609 val_auc=0.9915
+17:50:59 | INFO |   [mobilenet_v3 f4] ep 007/30 loss=0.0290 val_f1=0.9294 val_acc=0.9707 val_auc=0.9912
+17:51:04 | INFO |   [mobilenet_v3 f4] ep 008/30 loss=0.0157 val_f1=0.9349 val_acc=0.9731 val_auc=0.9920
+17:51:08 | INFO |   [mobilenet_v3 f4] ep 009/30 loss=0.0096 val_f1=0.9349 val_acc=0.9731 val_auc=0.9927
+17:51:13 | INFO |   [mobilenet_v3 f4] ep 010/30 loss=0.0080 val_f1=0.9349 val_acc=0.9731 val_auc=0.9924
+17:51:17 | INFO |   [mobilenet_v3 f4] ep 011/30 loss=0.0100 val_f1=0.9349 val_acc=0.9731 val_auc=0.9932
+17:51:22 | INFO |   [mobilenet_v3 f4] ep 012/30 loss=0.0129 val_f1=0.9349 val_acc=0.9731 val_auc=0.9927
+17:51:26 | INFO |   [mobilenet_v3 f4] ep 013/30 loss=0.0097 val_f1=0.9349 val_acc=0.9731 val_auc=0.9929
+17:51:31 | INFO |   [mobilenet_v3 f4] ep 014/30 loss=0.0078 val_f1=0.9349 val_acc=0.9731 val_auc=0.9929
+17:51:36 | INFO |   [mobilenet_v3 f4] ep 015/30 loss=0.0047 val_f1=0.9349 val_acc=0.9731 val_auc=0.9933
+17:51:40 | INFO |   [mobilenet_v3 f4] ep 016/30 loss=0.0119 val_f1=0.9349 val_acc=0.9731 val_auc=0.9924
+17:51:45 | INFO |   [mobilenet_v3 f4] ep 017/30 loss=0.0077 val_f1=0.9412 val_acc=0.9756 val_auc=0.9927
+17:51:50 | INFO |   [mobilenet_v3 f4] ep 018/30 loss=0.0061 val_f1=0.9405 val_acc=0.9756 val_auc=0.9930
+17:51:54 | INFO |   [mobilenet_v3 f4] ep 019/30 loss=0.0051 val_f1=0.9405 val_acc=0.9756 val_auc=0.9930
+17:51:59 | INFO |   [mobilenet_v3 f4] ep 020/30 loss=0.0038 val_f1=0.9349 val_acc=0.9731 val_auc=0.9932
+17:52:03 | INFO |   [mobilenet_v3 f4] ep 021/30 loss=0.0029 val_f1=0.9349 val_acc=0.9731 val_auc=0.9931
+17:52:08 | INFO |   [mobilenet_v3 f4] ep 022/30 loss=0.0044 val_f1=0.9349 val_acc=0.9731 val_auc=0.9934
+17:52:12 | INFO |   [mobilenet_v3 f4] ep 023/30 loss=0.0014 val_f1=0.9349 val_acc=0.9731 val_auc=0.9933
+17:52:17 | INFO |   [mobilenet_v3 f4] ep 024/30 loss=0.0058 val_f1=0.9349 val_acc=0.9731 val_auc=0.9933
+17:52:22 | INFO |   [mobilenet_v3 f4] ep 025/30 loss=0.0059 val_f1=0.9412 val_acc=0.9756 val_auc=0.9933
+17:52:26 | INFO |   [mobilenet_v3 f4] ep 026/30 loss=0.0040 val_f1=0.9349 val_acc=0.9731 val_auc=0.9933
+17:52:31 | INFO |   [mobilenet_v3 f4] ep 027/30 loss=0.0029 val_f1=0.9349 val_acc=0.9731 val_auc=0.9931
+17:52:31 | INFO |   early stop @ epoch 27 (no val-F1 gain for 10)
+17:52:39 | INFO | Fold 4 TEST f1=0.9829 acc=0.9925 auc=1.0000 ece=0.0151 (best val_f1=0.9412)
+17:52:39 | INFO | Fold 5: train=1618 test=408 | clients=6 val_patients=2 (['4', '8'])
+17:52:43 | INFO |   [mobilenet_v3 f5] ep 001/30 loss=0.2732 val_f1=0.5750 val_acc=0.6667 val_auc=0.8997
+17:52:48 | INFO |   [mobilenet_v3 f5] ep 002/30 loss=0.0885 val_f1=0.8462 val_acc=0.9216 val_auc=0.9867
+17:52:53 | INFO |   [mobilenet_v3 f5] ep 003/30 loss=0.0670 val_f1=0.9184 val_acc=0.9608 val_auc=0.9945
+17:52:57 | INFO |   [mobilenet_v3 f5] ep 004/30 loss=0.0538 val_f1=0.9375 val_acc=0.9706 val_auc=0.9949
+17:53:02 | INFO |   [mobilenet_v3 f5] ep 005/30 loss=0.0338 val_f1=0.9613 val_acc=0.9828 val_auc=0.9954
+17:53:07 | INFO |   [mobilenet_v3 f5] ep 006/30 loss=0.0312 val_f1=0.9579 val_acc=0.9804 val_auc=0.9963
+17:53:12 | INFO |   [mobilenet_v3 f5] ep 007/30 loss=0.0255 val_f1=0.9630 val_acc=0.9828 val_auc=0.9966
+17:53:16 | INFO |   [mobilenet_v3 f5] ep 008/30 loss=0.0231 val_f1=0.9783 val_acc=0.9902 val_auc=0.9959
+17:53:21 | INFO |   [mobilenet_v3 f5] ep 009/30 loss=0.0125 val_f1=0.9785 val_acc=0.9902 val_auc=0.9959
+17:53:25 | INFO |   [mobilenet_v3 f5] ep 010/30 loss=0.0142 val_f1=0.9785 val_acc=0.9902 val_auc=0.9966
+17:53:30 | INFO |   [mobilenet_v3 f5] ep 011/30 loss=0.0113 val_f1=0.9838 val_acc=0.9926 val_auc=0.9963
+17:53:35 | INFO |   [mobilenet_v3 f5] ep 012/30 loss=0.0062 val_f1=0.9838 val_acc=0.9926 val_auc=0.9964
+17:53:39 | INFO |   [mobilenet_v3 f5] ep 013/30 loss=0.0073 val_f1=0.9838 val_acc=0.9926 val_auc=0.9962
+17:53:44 | INFO |   [mobilenet_v3 f5] ep 014/30 loss=0.0167 val_f1=0.9727 val_acc=0.9877 val_auc=0.9971
+17:53:49 | INFO |   [mobilenet_v3 f5] ep 015/30 loss=0.0146 val_f1=0.9783 val_acc=0.9902 val_auc=0.9966
+17:53:53 | INFO |   [mobilenet_v3 f5] ep 016/30 loss=0.0104 val_f1=0.9727 val_acc=0.9877 val_auc=0.9961
+17:53:58 | INFO |   [mobilenet_v3 f5] ep 017/30 loss=0.0121 val_f1=0.9727 val_acc=0.9877 val_auc=0.9969
+17:54:03 | INFO |   [mobilenet_v3 f5] ep 018/30 loss=0.0139 val_f1=0.9727 val_acc=0.9877 val_auc=0.9961
+17:54:07 | INFO |   [mobilenet_v3 f5] ep 019/30 loss=0.0131 val_f1=0.9727 val_acc=0.9877 val_auc=0.9966
+17:54:12 | INFO |   [mobilenet_v3 f5] ep 020/30 loss=0.0072 val_f1=0.9727 val_acc=0.9877 val_auc=0.9949
+17:54:17 | INFO |   [mobilenet_v3 f5] ep 021/30 loss=0.0044 val_f1=0.9727 val_acc=0.9877 val_auc=0.9941
+17:54:17 | INFO |   early stop @ epoch 21 (no val-F1 gain for 10)
+17:54:24 | INFO | Fold 5 TEST f1=0.9836 acc=0.9926 auc=0.9969 ece=0.0051 (best val_f1=0.9838)
+17:54:24 | INFO | Saved results/centralized_results.csv and results/centralized_summary.csv
+18:51:13 | INFO | Centralized CV | backbone=efficientnet_b0 folds=[1] loss=weighted_ce ft=full | device=cuda
+18:51:13 | INFO | Fold 1: train=1624 test=402 | clients=6 val_patients=2 (['2', '6'])
+18:51:32 | INFO |   [efficientnet_b0 f1] ep 001/30 loss=0.2999 val_f1=0.8558 val_acc=0.9235 val_auc=0.9975
+18:51:40 | INFO |   [efficientnet_b0 f1] ep 002/30 loss=0.0779 val_f1=0.9634 val_acc=0.9827 val_auc=0.9991
+18:51:47 | INFO |   [efficientnet_b0 f1] ep 003/30 loss=0.0436 val_f1=0.9534 val_acc=0.9778 val_auc=0.9994
+18:51:55 | INFO |   [efficientnet_b0 f1] ep 004/30 loss=0.0477 val_f1=0.9490 val_acc=0.9753 val_auc=0.9993
+18:52:02 | INFO |   [efficientnet_b0 f1] ep 005/30 loss=0.0495 val_f1=0.9840 val_acc=0.9926 val_auc=0.9995
+18:52:10 | INFO |   [efficientnet_b0 f1] ep 006/30 loss=0.0242 val_f1=0.9684 val_acc=0.9852 val_auc=0.9991
+18:52:17 | INFO |   [efficientnet_b0 f1] ep 007/30 loss=0.0241 val_f1=0.9840 val_acc=0.9926 val_auc=0.9996
+18:52:25 | INFO |   [efficientnet_b0 f1] ep 008/30 loss=0.0206 val_f1=0.9684 val_acc=0.9852 val_auc=0.9997
+18:52:32 | INFO |   [efficientnet_b0 f1] ep 009/30 loss=0.0111 val_f1=0.9684 val_acc=0.9852 val_auc=0.9995
+18:52:39 | INFO |   [efficientnet_b0 f1] ep 010/30 loss=0.0185 val_f1=0.9787 val_acc=0.9901 val_auc=0.9995
+18:52:47 | INFO |   [efficientnet_b0 f1] ep 011/30 loss=0.0107 val_f1=0.9787 val_acc=0.9901 val_auc=0.9994
+18:52:54 | INFO |   [efficientnet_b0 f1] ep 012/30 loss=0.0164 val_f1=0.9684 val_acc=0.9852 val_auc=0.9991
+18:53:01 | INFO |   [efficientnet_b0 f1] ep 013/30 loss=0.0146 val_f1=0.9840 val_acc=0.9926 val_auc=0.9995
+18:53:09 | INFO |   [efficientnet_b0 f1] ep 014/30 loss=0.0116 val_f1=0.9840 val_acc=0.9926 val_auc=0.9995
+18:53:16 | INFO |   [efficientnet_b0 f1] ep 015/30 loss=0.0134 val_f1=0.9838 val_acc=0.9926 val_auc=0.9993
+18:53:16 | INFO |   early stop @ epoch 15 (no val-F1 gain for 10)
+18:53:24 | INFO | Fold 1 TEST f1=0.9796 acc=0.9900 auc=0.9960 ece=0.0203 (best val_f1=0.9840)
+18:53:24 | INFO | Saved results/centralized_results.csv and results/centralized_summary.csv

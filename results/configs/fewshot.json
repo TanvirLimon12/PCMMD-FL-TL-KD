@@ -1,0 +1,43 @@
+{
+  "data_root": "/kaggle/working/PCMMD-repo/data/eda",
+  "fold_dir": "/kaggle/working/PCMMD-repo/data/eda",
+  "image_root": "/kaggle/input",
+  "root_dir": "./",
+  "folds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "fold_id": 1,
+  "backbone": "resnet50",
+  "pretrained": true,
+  "epochs": 25,
+  "batch_size": 32,
+  "learning_rate": 0.0001,
+  "weight_decay": 0.0001,
+  "patience": 10,
+  "num_workers": 2,
+  "use_weighted_sampler": true,
+  "use_weighted_loss": false,
+  "results_dir": "results",
+  "figures_dir": "figures",
+  "ckpt_dir": "checkpoints",
+  "backbones": [
+    "efficientnet_b0",
+    "mobilenet_v3"
+  ],
+  "data_pcts": [
+    5,
+    10,
+    20,
+    50,
+    100
+  ],
+  "finetune_mode": "full",
+  "val_frac": 0.2,
+  "_torch_version": "2.10.0+cu128",
+  "_cuda": true,
+  "_seed": 42
+}
