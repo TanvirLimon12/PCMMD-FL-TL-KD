@@ -1,0 +1,9 @@
+patient_id,diagnosis,total_cells,plasma_cells,non_plasma_cells,plasma_percentage
+1,mm,202,82,120,40.59
+10,normal,203,15,188,7.39
+2,mm,205,78,127,38.05
+3,mm,201,73,128,36.32
+5,mm,200,71,129,35.5
+6,normal,200,15,185,7.5
+7,normal,205,18,187,8.78
+8,normal,208,9,199,4.33

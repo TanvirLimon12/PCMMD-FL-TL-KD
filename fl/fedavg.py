@@ -33,7 +33,7 @@ def aggregate_fedavg(
     for weights, n in zip(client_weights_list, client_data_sizes):
         factor = n / total_samples
         for k in aggregated:
-            aggregated[k] += weights[k].float() * factor
+            aggregated[k] += weights[k].float().to(aggregated[k].device) * factor
 
     global_model.load_state_dict(aggregated)
     return global_model

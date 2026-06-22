@@ -1,0 +1,31 @@
+{
+  "data_root": "data/eda",
+  "fold_dir": "data/eda",
+  "image_root": "/kaggle/input/datasets",
+  "root_dir": "./",
+  "folds": [
+    1
+  ],
+  "fold_id": 1,
+  "backbone": "mobilenet_v3",
+  "pretrained": true,
+  "epochs": 20,
+  "batch_size": 16,
+  "learning_rate": 0.001,
+  "weight_decay": 0.0001,
+  "patience": 5,
+  "num_workers": 2,
+  "use_weighted_sampler": true,
+  "use_weighted_loss": false,
+  "results_dir": "results",
+  "figures_dir": "figures",
+  "ckpt_dir": "checkpoints",
+  "distribution": "non-IID",
+  "num_clients": null,
+  "val_frac": 0.2,
+  "num_rounds": 50,
+  "local_epochs": 3,
+  "_torch_version": "2.10.0+cu128",
+  "_cuda": true,
+  "_seed": 42
+}

@@ -1,6 +1,6 @@
 data_root: data/eda
-fold_dir: null
-image_root: data/patient_cells
+fold_dir: data/eda
+image_root: /kaggle/input/datasets
 root_dir: ./
 folds:
 - 1
