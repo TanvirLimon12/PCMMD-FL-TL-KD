@@ -78,8 +78,12 @@ def set_seed(seed: int = SEED, deterministic: bool = True) -> None:
 
 
 def get_device() -> torch.device:
-    """CUDA if available, else CPU (Kaggle GPU / local CPU fallback)."""
-    return torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    """CUDA > MPS (Apple Silicon) > CPU."""
+    if torch.cuda.is_available():
+        return torch.device("cuda")
+    if getattr(torch.backends, "mps", None) and torch.backends.mps.is_available():
+        return torch.device("mps")
+    return torch.device("cpu")
 
 
 # ── Logging ───────────────────────────────────────────────────────────────────

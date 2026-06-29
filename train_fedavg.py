@@ -34,6 +34,7 @@ from pathlib import Path
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
+import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 import torch  # noqa: E402
 import torch.nn as nn  # noqa: E402
@@ -64,8 +65,11 @@ def append_csv(path: Path, df: pd.DataFrame, subset) -> None:
 
 def run_fedavg(cfg, device, logger) -> None:
     fold_id, backbone = cfg["fold_id"], cfg["backbone"]
-    dist_label = "iid" if str(cfg.get("distribution", "non-IID")).lower() == "iid" else "noniid"
-    partition = "iid" if dist_label == "iid" else "patient"
+    _raw_dist = str(cfg.get("distribution", "non-IID")).lower()
+    dist_label = "iid" if _raw_dist == "iid" else (_raw_dist if _raw_dist.startswith("dirichlet") else "noniid")
+    # partition: iid always uses "iid"; non-IID defaults to "patient" but can be "dirichlet"
+    partition = "iid" if dist_label == "iid" else cfg.get("partition", "patient")
+    dirichlet_alpha = cfg.get("dirichlet_alpha", 0.5)
     val_frac = cfg.get("val_frac", 0.2)
 
     stats = compute_client_stats(cfg["fold_dir"], fold_id)
@@ -80,11 +84,15 @@ def run_fedavg(cfg, device, logger) -> None:
     client_loaders = build_client_loaders(
         fold_dir=cfg["fold_dir"], fold_id=fold_id, batch_size=cfg["batch_size"],
         num_workers=cfg["num_workers"], root_dir=cfg["root_dir"], image_root=cfg["image_root"],
-        partition=partition, num_clients=cfg.get("num_clients"), holdout_patients=set(val_pat))
+        partition=partition, num_clients=cfg.get("num_clients"), holdout_patients=set(val_pat),
+        dirichlet_alpha=dirichlet_alpha)
     monitor = val_loader if val_loader is not None else test_loader
     n_clients = len(client_loaders)
-    logger.info("FedAvg | dist=%s clients=%d rounds=%d fold=%d val_patients=%s",
-                dist_label, n_clients, cfg["num_rounds"], fold_id, val_pat)
+    client_frac = float(cfg.get("client_fraction", 1.0))  # C-fraction: 0.5 | 0.75 | 1.0
+    local_epochs = int(cfg.get("local_epochs", 3))
+    rng_participation = np.random.default_rng(42)
+    logger.info("FedAvg | dist=%s partition=%s clients=%d C=%.2f E=%d rounds=%d fold=%d",
+                dist_label, partition, n_clients, client_frac, local_epochs, cfg["num_rounds"], fold_id)
 
     global_model = build_model(backbone, num_classes=2, pretrained=cfg["pretrained"]).to(device)
     criterion = nn.CrossEntropyLoss()
@@ -94,14 +102,19 @@ def run_fedavg(cfg, device, logger) -> None:
     ckpt = ckpt_dir / f"{backbone}_{dist_label}_fold{fold_id}.pth"
 
     best_f1, round_logs, comm_logs, cumulative_mb = -1.0, [], [], 0.0
+    all_client_keys = list(client_loaders.keys())
     for rnd in range(1, cfg["num_rounds"] + 1):
         t0 = time.time()
+        # partial participation: sample ceil(C * n) clients without replacement
+        k_selected = max(1, int(np.ceil(client_frac * n_clients)))
+        selected_keys = rng_participation.choice(all_client_keys, size=k_selected, replace=False).tolist()
         client_weights, client_sizes, round_loss = [], [], 0.0
         global_sd = copy.deepcopy(global_model.state_dict())
-        for loader in client_loaders.values():
+        for key in selected_keys:
+            loader = client_loaders[key]
             local = copy.deepcopy(global_model)
             opt = optim.Adam(local.parameters(), lr=cfg["learning_rate"])
-            res = FLClient(local, loader, criterion, opt, device).train(epochs=cfg["local_epochs"])
+            res = FLClient(local, loader, criterion, opt, device).train(epochs=local_epochs)
             client_weights.append(res["state_dict"]); client_sizes.append(res["num_samples"])
             round_loss += res["loss"] * res["num_samples"]
         global_model.load_state_dict(global_sd)
@@ -109,15 +122,18 @@ def run_fedavg(cfg, device, logger) -> None:
 
         vm = evaluate_with_loss(global_model, monitor, criterion, device)
         elapsed = time.time() - t0
-        cumulative_mb += model_mb * n_clients * 2
-        logger.info("[r%03d] train_loss=%.4f val_loss=%.4f val_f1=%.4f val_auc=%.4f (%.1fs)",
-                    rnd, round_loss / max(1, sum(client_sizes)), vm["loss"], vm["f1"], vm["roc_auc"], elapsed)
-        round_logs.append({"method": "fedavg", "distribution": dist_label, "round": rnd,
+        cumulative_mb += model_mb * k_selected * 2
+        logger.info("[r%03d] clients=%d/%d train_loss=%.4f val_f1=%.4f (%.1fs)",
+                    rnd, k_selected, n_clients, round_loss / max(1, sum(client_sizes)), vm["f1"], elapsed)
+        round_logs.append({"method": "fedavg", "distribution": dist_label, "fold": fold_id,
+                           "client_fraction": client_frac, "local_epochs": local_epochs,
+                           "round": rnd, "n_selected": k_selected,
                            "train_loss": round(round_loss / max(1, sum(client_sizes)), 5),
                            "val_loss": round(vm["loss"], 5),
                            **{f"val_{k}": round(vm[k], 5) for k in METRIC_COLS}})
-        comm_logs.append({"method": "fedavg", "distribution": dist_label, "round": rnd,
-                          "n_clients": n_clients, "model_size_mb": round(model_mb, 3),
+        comm_logs.append({"method": "fedavg", "distribution": dist_label, "fold": fold_id, "round": rnd,
+                          "n_clients": n_clients, "n_selected": k_selected,
+                          "model_size_mb": round(model_mb, 3),
                           "round_time_sec": round(elapsed, 2),
                           "cumulative_comm_mb": round(cumulative_mb, 2)})
         if vm["f1"] > best_f1:
@@ -127,9 +143,9 @@ def run_fedavg(cfg, device, logger) -> None:
     # round logs use val_f1 as the selection metric for rounds_to_best
     rl = pd.DataFrame(round_logs)
     append_csv(Path(cfg["results_dir"]) / "fedavg_round_logs.csv", rl,
-               subset=["method", "distribution", "round"])
+               subset=["method", "distribution", "fold", "round"])
     append_csv(Path(cfg["results_dir"]) / "communication_analysis.csv", pd.DataFrame(comm_logs),
-               subset=["method", "distribution", "round"])
+               subset=["method", "distribution", "fold", "round"])
 
     # Best-round (restore ckpt) and final-round TEST metrics
     final = compute_all_metrics(*collect_predictions(global_model, test_loader, device)[:3])
@@ -147,9 +163,9 @@ def run_fedavg(cfg, device, logger) -> None:
 
     # Per-client analysis (global model on each client) + bar plot
     cdf = per_client_metrics(global_model, client_loaders, device, diag_map)
-    cdf.insert(0, "method", "fedavg"); cdf.insert(1, "distribution", dist_label)
+    cdf.insert(0, "method", "fedavg"); cdf.insert(1, "distribution", dist_label); cdf.insert(2, "fold", fold_id)
     append_csv(Path(cfg["results_dir"]) / "client_analysis.csv", cdf,
-               subset=["method", "distribution", "patient_id"])
+               subset=["method", "distribution", "fold", "patient_id"])
     colors = cdf["diagnosis"].map({"mm": "#C44E52", "normal": "#4C72B0"}).fillna("#8C8C8C")
     plot_client_performance(cdf["patient_id"], cdf["f1"],
                             Path(cfg["figures_dir"]) / "clients" / f"client_perf_fedavg_{dist_label}.png",
@@ -174,10 +190,13 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", default="configs/fedavg.yaml")
     ap.add_argument("--distribution", default=None, choices=["iid", "non-IID", "noniid", "patient"])
+    ap.add_argument("--fold", type=int, default=None, help="Override fold_id from config")
     args = ap.parse_args()
     cfg = load_config(args.config)
     if args.distribution:
         cfg["distribution"] = args.distribution
+    if args.fold is not None:
+        cfg["fold_id"] = args.fold
     set_seed()
     device = get_device()
     logger = setup_logging(Path(cfg["results_dir"]) / "logs" / "fedavg.log")

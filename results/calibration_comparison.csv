@@ -1,0 +1,5 @@
+method,ece,fold,backbone
+EfficientNet (Centralized),0.00436,1,efficientnet_b0
+ResNet50 (Centralized),0.01202,1,resnet50
+MobileNetV3 (Centralized),0.00679,1,mobilenet_v3
+MobileNetV3 (FedAvg),0.00963,1,mobilenet_v3

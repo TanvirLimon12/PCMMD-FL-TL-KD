@@ -1,0 +1,3 @@
+model,params_total,params_total_m,model_size_mb,macs_g,flops_g,params_m,latency_ms_mean,latency_ms_std,throughput_img_s,test_f1,test_pr_auc
+teacher_efficientnet_b0,4010110,4.01,15.458,,,,7.464,0.459,133.975,0.96296,0.99026
+student_mobilenet_v3,1519906,1.52,5.844,,,,4.246,0.228,235.495,0.97802,0.99594

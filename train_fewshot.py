@@ -11,12 +11,15 @@ else basename) collides with the test fold (handled in data.folds.get_fewshot_lo
 Model selection uses the patient-disjoint VAL set; TEST is scored once per setting.
 
 Outputs:
-  results/fewshot_results.csv          — model × data% × fold (Acc/F1/ROC-AUC/PR-AUC/plasma-recall)
-  results/fewshot_summary.csv          — mean ± std across folds per (model, data%)
-  figures/fewshot/<model>_curve.png    — F1 & PR-AUC vs labeled-data %
-  checkpoints/fewshot/<model>_p<pct>_fold<k>.pth
+  results/fewshot_results.csv          — model × data% × fold × seed (Acc/F1/ROC-AUC/PR-AUC/plasma-recall)
+  results/fewshot_summary.csv          — mean ± std across folds per (model, data%), canonical seed only
+  figures/fewshot/<model>_curve.png    — F1 & PR-AUC vs labeled-data %, canonical seed only
+  checkpoints/fewshot/<model>_p<pct>_fold<k>[_seed<s>].pth
 
-Run:  python train_fewshot.py --config configs/fewshot.yaml
+--seed varies model init / batch order only — the data% subsamples are frozen in
+data/eda/fewshot_*.csv. Useful for checking whether a given data% result is stable.
+
+Run:  python train_fewshot.py --config configs/fewshot.yaml [--seed 42]
 """
 from __future__ import annotations
 
@@ -38,7 +41,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from data.folds import get_fewshot_loader, get_fold_loaders  # noqa: E402
 from models import build_model  # noqa: E402
 from utils import (  # noqa: E402
-    collect_predictions, compute_all_metrics, get_device, load_config,
+    SEED, collect_predictions, compute_all_metrics, get_device, load_config,
     save_config_snapshot, set_seed, setup_logging, summarise_folds,
 )
 
@@ -50,15 +53,23 @@ def _metrics(model, loader, device):
     return compute_all_metrics(yt, yp, pr)
 
 
-def train_one(cfg, device, logger, backbone, pct, fold_id, train_loader, monitor, test_loader) -> dict:
+def train_one(cfg, device, logger, backbone, pct, fold_id, seed, train_loader, monitor, test_loader) -> dict:
+    ckpt_dir = Path(cfg["ckpt_dir"]) / "fewshot"; ckpt_dir.mkdir(parents=True, exist_ok=True)
+    suffix = "" if seed == SEED else f"_seed{seed}"
+    ckpt = ckpt_dir / f"{backbone}_p{pct}_fold{fold_id}{suffix}.pth"
     model = build_model(backbone, num_classes=2, pretrained=cfg["pretrained"],
                         finetune_mode=cfg.get("finetune_mode", "full")).to(device)
+    if ckpt.exists():
+        logger.info("  [%s p%s f%d seed%d] checkpoint exists — skip training, evaluating",
+                    backbone, pct, fold_id, seed)
+        model.load_state_dict(torch.load(ckpt, map_location=device))
+        tm = _metrics(model, test_loader, device)
+        return {"backbone": backbone, "data_pct": pct, "fold": fold_id, "seed": seed,
+                **{k: round(tm[k], 5) for k in METRIC_COLS}}
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.AdamW([p for p in model.parameters() if p.requires_grad],
                             lr=cfg["learning_rate"], weight_decay=cfg["weight_decay"])
     scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=cfg["epochs"])
-    ckpt_dir = Path(cfg["ckpt_dir"]) / "fewshot"; ckpt_dir.mkdir(parents=True, exist_ok=True)
-    ckpt = ckpt_dir / f"{backbone}_p{pct}_fold{fold_id}.pth"
 
     best_f1, patience_ctr = -1.0, 0
     for epoch in range(1, cfg["epochs"] + 1):
@@ -78,28 +89,33 @@ def train_one(cfg, device, logger, backbone, pct, fold_id, train_loader, monitor
             patience_ctr += 1
             if patience_ctr >= cfg["patience"]:
                 break
-    logger.info("  [%s p%s f%d] best_val_f1=%.4f", backbone, pct, fold_id, best_f1)
+    logger.info("  [%s p%s f%d seed%d] best_val_f1=%.4f", backbone, pct, fold_id, seed, best_f1)
     model.load_state_dict(torch.load(ckpt, map_location=device))
     tm = _metrics(model, test_loader, device)
-    return {"backbone": backbone, "data_pct": pct, "fold": fold_id, "seed": 42,
+    return {"backbone": backbone, "data_pct": pct, "fold": fold_id, "seed": seed,
             **{k: round(tm[k], 5) for k in METRIC_COLS}}
 
 
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", default="configs/fewshot.yaml")
+    ap.add_argument("--seed", type=int, default=SEED,
+                    help="Training-process seed (model init, batch order). The few-shot "
+                         "subsamples themselves are frozen in data/eda/fewshot_*.csv and do "
+                         "not change with this flag.")
     args = ap.parse_args()
     cfg = load_config(args.config)
     backbones = cfg.get("backbones", ["efficientnet_b0", "mobilenet_v3"])
     pcts = cfg.get("data_pcts", [5, 10, 20, 50, 100])
     folds = cfg["folds"]
 
-    set_seed()
+    set_seed(args.seed)
     device = get_device()
     Path(cfg["results_dir"]).mkdir(parents=True, exist_ok=True)
     logger = setup_logging(Path(cfg["results_dir"]) / "logs" / "fewshot.log")
     save_config_snapshot(cfg, Path(cfg["results_dir"]) / "configs" / "fewshot.json")
-    logger.info("Few-shot | backbones=%s pcts=%s folds=%s | device=%s", backbones, pcts, folds, device)
+    logger.info("Few-shot | backbones=%s pcts=%s folds=%s seed=%d | device=%s",
+                backbones, pcts, folds, args.seed, device)
 
     rows = []
     for fold_id in folds:
@@ -116,19 +132,22 @@ def main() -> None:
                 logger.warning("fewshot_%s fold%d: dropped %d rows colliding with test (anti-leakage).",
                                pct, fold_id, dropped)
             for backbone in backbones:
-                rows.append(train_one(cfg, device, logger, backbone, pct, fold_id,
+                rows.append(train_one(cfg, device, logger, backbone, pct, fold_id, args.seed,
                                       fs_loader, monitor, test_loader))
 
     res = pd.DataFrame(rows)
     res_path = Path(cfg["results_dir"]) / "fewshot_results.csv"
     if res_path.exists():
         res = pd.concat([pd.read_csv(res_path), res]).drop_duplicates(
-            subset=["backbone", "data_pct", "fold"], keep="last")
+            subset=["backbone", "data_pct", "fold", "seed"], keep="last")
     res.to_csv(res_path, index=False)
 
-    # Summary mean±std across folds per (backbone, data_pct)
+    # Summary mean±std across folds, canonical seed only (other seeds are robustness
+    # checks living alongside in fewshot_results.csv — summarise_folds() would otherwise
+    # conflate per-fold and per-seed variance if both are present for the same fold).
+    canon = res[res["seed"] == SEED]
     summ_rows = []
-    for (bb, pct), sub in res.groupby(["backbone", "data_pct"]):
+    for (bb, pct), sub in canon.groupby(["backbone", "data_pct"]):
         s = summarise_folds(sub, METRIC_COLS)
         s.insert(0, "data_pct", pct); s.insert(0, "backbone", bb)
         summ_rows.append(s)
@@ -138,7 +157,7 @@ def main() -> None:
     # Data-efficiency curves: F1 & PR-AUC vs data%
     fig_dir = Path(cfg["figures_dir"]) / "fewshot"; fig_dir.mkdir(parents=True, exist_ok=True)
     for bb in backbones:
-        sub = res[res["backbone"] == bb]
+        sub = canon[canon["backbone"] == bb]
         if sub.empty:
             continue
         agg = sub.groupby("data_pct").agg(f1=("f1", "mean"), f1s=("f1", "std"),

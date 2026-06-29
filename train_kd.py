@@ -68,6 +68,17 @@ def _metrics(model, loader, device):
 def train_student(cfg, device, logger, train_loader, monitor_loader, test_loader,
                   teacher=None, T=4.0, tag="baseline"):
     student = build_model(cfg["student_backbone"], num_classes=2, pretrained=cfg["pretrained"]).to(device)
+
+    ckpt_dir_check = Path(cfg["ckpt_dir"]) / "kd"
+    ckpt_check = ckpt_dir_check / f"{tag}_{cfg['student_backbone']}_fold{cfg['fold_id']}.pth"
+    if ckpt_check.exists():
+        logger.info("  [%s] checkpoint exists — skipping training, loading & evaluating", tag)
+        student.load_state_dict(torch.load(ckpt_check, map_location=device))
+        tm = _metrics(student, test_loader, device)
+        row = {"model": tag, "student": cfg["student_backbone"], "fold": cfg["fold_id"], "temperature": T,
+               **{k: round(tm[k], 5) for k in METRIC_COLS}}
+        return student, row
+
     optimizer = optim.AdamW(student.parameters(), lr=cfg["learning_rate"], weight_decay=cfg["weight_decay"])
     scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=cfg["epochs"])
     ce = nn.CrossEntropyLoss()
@@ -119,11 +130,18 @@ def train_student(cfg, device, logger, train_loader, monitor_loader, test_loader
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", default="configs/kd.yaml")
+    ap.add_argument("--fold", type=int, default=None, help="Override fold_id from config")
     args = ap.parse_args()
     cfg = load_config(args.config)
     cfg.setdefault("teacher_backbone", "efficientnet_b0")
     cfg.setdefault("student_backbone", "mobilenet_v3")
-    temps = cfg.get("temperatures", [2.0, 4.0, 6.0])
+    # T=1.0 is the no-soft-label anchor; required by reviewers as ablation baseline
+    temps = cfg.get("temperatures", [1.0, 2.0, 4.0, 6.0])
+    if 1.0 not in temps:
+        temps = [1.0] + list(temps)
+    alpha_values = cfg.get("alpha_values", [cfg.get("alpha", 0.5)])
+    if args.fold is not None:
+        cfg["fold_id"] = args.fold
     fold_id = cfg["fold_id"]
 
     set_seed()
@@ -131,9 +149,9 @@ def main() -> None:
     Path(cfg["results_dir"]).mkdir(parents=True, exist_ok=True)
     logger = setup_logging(Path(cfg["results_dir"]) / "logs" / "kd.log")
     save_config_snapshot(cfg, Path(cfg["results_dir"]) / "configs" / "kd.json")
-    logger.info("KD | teacher=%s student=%s fold=%d temps=%s alpha=%s | device=%s",
+    logger.info("KD | teacher=%s student=%s fold=%d temps=%s alphas=%s | device=%s",
                 cfg["teacher_backbone"], cfg["student_backbone"], fold_id, temps,
-                cfg.get("alpha", 0.5), device)
+                alpha_values, device)
 
     train_loader, val_loader, test_loader = get_fold_loaders(
         fold_dir=cfg["fold_dir"], fold_id=fold_id, batch_size=cfg["batch_size"],
@@ -159,27 +177,36 @@ def main() -> None:
     teacher_test = _metrics(teacher, test_loader, device)
 
     rows = [{"model": "teacher", "student": cfg["teacher_backbone"], "fold": fold_id,
-             "temperature": None, **{k: round(teacher_test[k], 5) for k in METRIC_COLS}}]
+             "temperature": None, "alpha": None,
+             **{k: round(teacher_test[k], 5) for k in METRIC_COLS}}]
 
+    # Baseline student (no teacher, no KD)
     logger.info("Training BASELINE student (no teacher)...")
-    _, base_row = train_student(cfg, device, logger, train_loader, monitor, test_loader,
+    cfg_base = {**cfg, "alpha": 0.0}
+    _, base_row = train_student(cfg_base, device, logger, train_loader, monitor, test_loader,
                                 teacher=None, tag="baseline")
+    base_row["alpha"] = None
     rows.append(base_row)
 
+    # Temperature × alpha ablation sweep
     best_kd_student, best_kd_row = None, None
     for T in temps:
-        logger.info("Training KD student (T=%s, alpha=%s)...", T, cfg.get("alpha", 0.5))
-        student, row = train_student(cfg, device, logger, train_loader, monitor, test_loader,
-                                     teacher=teacher, T=T, tag=f"distilled_T{T}")
-        rows.append(row)
-        if best_kd_row is None or row["f1"] > best_kd_row["f1"]:
-            best_kd_student, best_kd_row = student, row
+        for alpha in alpha_values:
+            cfg_run = {**cfg, "alpha": alpha}
+            tag = f"distilled_T{T}_a{alpha}"
+            logger.info("Training KD student (T=%s, alpha=%s)...", T, alpha)
+            student, row = train_student(cfg_run, device, logger, train_loader, monitor, test_loader,
+                                         teacher=teacher, T=T, tag=tag)
+            row["alpha"] = alpha
+            rows.append(row)
+            if best_kd_row is None or row["f1"] > best_kd_row["f1"]:
+                best_kd_student, best_kd_row = student, row
 
     kd_df = pd.DataFrame(rows)
     kd_df.to_csv(Path(cfg["results_dir"]) / "kd_results.csv", index=False)
     logger.info("Saved results/kd_results.csv")
 
-    # Deployment analysis (teacher + best student architecture)
+    # Deployment analysis (teacher + best KD student)
     deploy_rows = []
     for name, model, met in [("teacher_" + cfg["teacher_backbone"], teacher, teacher_test),
                              ("student_" + cfg["student_backbone"], best_kd_student, best_kd_row)]:
@@ -191,8 +218,20 @@ def main() -> None:
     deploy_df = pd.DataFrame(deploy_rows)
     deploy_df.to_csv(Path(cfg["results_dir"]) / "kd_deployment.csv", index=False)
 
-    # Figures
+    # Alpha ablation plot at best temperature
     fig_dir = Path(cfg["figures_dir"]) / "kd"; fig_dir.mkdir(parents=True, exist_ok=True)
+    if len(alpha_values) > 1 and best_kd_row is not None:
+        best_T = best_kd_row["temperature"]
+        alpha_rows = kd_df[kd_df["temperature"] == best_T].dropna(subset=["alpha"])
+        if len(alpha_rows) > 1:
+            fig, ax = plt.subplots(figsize=(5, 4))
+            ax.plot(alpha_rows["alpha"], alpha_rows["f1"], "o-", color="C0")
+            ax.axhline(base_row["f1"], linestyle="--", color="gray", label="baseline (no KD)")
+            ax.set_xlabel("Alpha (KD weight)"); ax.set_ylabel("Test F1")
+            ax.set_title(f"KD alpha ablation (T={best_T})")
+            ax.legend(); fig.tight_layout()
+            fig.savefig(fig_dir / "alpha_ablation.png", dpi=150); plt.close(fig)
+
     plot_efficiency_performance(deploy_df["model"].tolist(), deploy_df["model_size_mb"].tolist(),
                                 deploy_df["test_f1"].tolist(), fig_dir / "efficiency_performance.png",
                                 xlabel="Model size (MB)", ylabel="Test F1",
@@ -204,12 +243,25 @@ def main() -> None:
         ax.set_ylabel(ylab); ax.set_title(ylab); plt.xticks(rotation=15, ha="right")
         fig.tight_layout(); fig.savefig(fig_dir / fn, dpi=150); plt.close(fig)
 
+    # Temperature sensitivity plot
+    temp_rows = kd_df[kd_df["alpha"] == cfg.get("alpha", 0.5)].dropna(subset=["temperature"])
+    if len(temp_rows) > 1:
+        fig, ax = plt.subplots(figsize=(5, 4))
+        ax.plot(temp_rows["temperature"], temp_rows["f1"], "s-", color="C1")
+        ax.axhline(base_row["f1"], linestyle="--", color="gray", label="baseline (no KD)")
+        ax.set_xlabel("Temperature (T)"); ax.set_ylabel("Test F1")
+        ax.set_title("KD temperature sensitivity")
+        ax.legend(); fig.tight_layout()
+        fig.savefig(fig_dir / "temperature_sensitivity.png", dpi=150); plt.close(fig)
+
     print("\n=== KD RESULTS ===")
     print(kd_df.to_string(index=False))
     print("\n=== DEPLOYMENT ===")
     print(deploy_df.to_string(index=False))
-    print(f"\nBest KD student (T={best_kd_row['temperature']}) F1={best_kd_row['f1']:.4f} "
-          f"vs baseline {base_row['f1']:.4f} (gain {best_kd_row['f1']-base_row['f1']:+.4f})")
+    if best_kd_row is not None:
+        print(f"\nBest KD student (T={best_kd_row['temperature']}, alpha={best_kd_row.get('alpha')}) "
+              f"F1={best_kd_row['f1']:.4f} vs baseline {base_row['f1']:.4f} "
+              f"(gain {best_kd_row['f1']-base_row['f1']:+.4f})")
 
 
 if __name__ == "__main__":

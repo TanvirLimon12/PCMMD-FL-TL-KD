@@ -1,0 +1,5 @@
+epsilon,f1,note
+1,0.843,"Strong privacy, accuracy drop"
+5,0.878,Moderate privacy
+10,0.899,Light privacy
+∞,0.908,No DP (baseline FedBN)

@@ -1,6 +1,6 @@
 data_root: data/eda
-fold_dir: null
-image_root: data/patient_cells
+fold_dir: data/eda
+image_root: /Users/shorna/Projects/group 5/PCMMD/data/patient_cells
 root_dir: ./
 fold_id: 1
 pretrained: true
@@ -8,10 +8,15 @@ teacher_backbone: efficientnet_b0
 student_backbone: mobilenet_v3
 teacher_weights: null
 temperatures:
+- 1.0
 - 2.0
 - 4.0
 - 6.0
 alpha: 0.5
+alpha_values:
+- 0.3
+- 0.5
+- 0.7
 epochs: 25
 batch_size: 32
 learning_rate: 0.0001

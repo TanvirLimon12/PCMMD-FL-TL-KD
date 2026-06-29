@@ -1,0 +1,37 @@
+{
+  "data_root": "data/eda",
+  "fold_dir": "data/eda",
+  "image_root": "/Users/shorna/Projects/group 5/PCMMD/data/patient_cells",
+  "root_dir": "./",
+  "folds": [
+    1
+  ],
+  "fold_id": 5,
+  "backbone": "resnet50",
+  "pretrained": true,
+  "epochs": 25,
+  "batch_size": 32,
+  "learning_rate": 0.0001,
+  "weight_decay": 0.0001,
+  "patience": 10,
+  "num_workers": 2,
+  "use_weighted_sampler": true,
+  "use_weighted_loss": false,
+  "results_dir": "results",
+  "figures_dir": "figures",
+  "ckpt_dir": "checkpoints",
+  "teacher_backbone": "efficientnet_b0",
+  "student_backbone": "mobilenet_v3",
+  "teacher_weights": null,
+  "temperatures": [
+    1.0
+  ],
+  "alpha": 0.7,
+  "alpha_values": [
+    0.7
+  ],
+  "val_frac": 0.2,
+  "_torch_version": "2.9.1",
+  "_cuda": false,
+  "_seed": 42
+}

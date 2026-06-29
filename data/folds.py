@@ -31,7 +31,10 @@ from typing import Dict, List, Optional, Tuple
 
 import numpy as np
 import pandas as pd
+import torch
 from torch.utils.data import DataLoader
+
+_PIN_MEMORY = torch.cuda.is_available()  # False on MPS (not supported)
 
 from .dataset import CLASS_TO_IDX, PCMMDDataset, build_loader
 from .transforms import get_train_transforms, get_val_transforms
@@ -206,16 +209,19 @@ def build_client_loaders(
     num_workers: int = 2,
     root_dir: Optional[str | Path] = None,
     image_root: Optional[str | Path] = None,
-    partition: str = "patient",        # "patient" (non-IID) | "iid"
+    partition: str = "patient",        # "patient" (non-IID) | "iid" | "dirichlet"
     num_clients: Optional[int] = None,
     holdout_patients: Optional[set] = None,   # val patients excluded from federation
     seed: int = SEED,
+    dirichlet_alpha: float = 0.5,      # concentration param for Dirichlet partition
 ) -> Dict[str, DataLoader]:
     """
     {client_id: DataLoader} over TRAIN patients (minus holdout_patients).
 
-    partition="patient": one client per patient_id → natural non-IID.
-    partition="iid"    : pooled train shuffled into equal shards.
+    partition="patient"  : one client per patient_id → natural label/quantity non-IID.
+    partition="iid"      : pooled train shuffled into equal shards.
+    partition="dirichlet": Dirichlet(alpha)-based label skew across clients.
+                           Lower alpha → more heterogeneous; alpha=0.5 is standard.
     """
     csv_path = Path(fold_dir) / f"fold_{fold_id}.csv"
     keep = None
@@ -235,7 +241,7 @@ def build_client_loaders(
             subset = full_ds.patient_subset(pid)
             loaders[str(pid)] = DataLoader(
                 subset, batch_size=batch_size, shuffle=True,
-                num_workers=num_workers, pin_memory=True, drop_last=False)
+                num_workers=num_workers, pin_memory=_PIN_MEMORY, drop_last=False)
     elif partition == "iid":
         n = num_clients or full_ds.df["patient_id"].nunique()
         idx = np.arange(len(full_ds))
@@ -244,9 +250,32 @@ def build_client_loaders(
             subset = full_ds.index_subset(shard.tolist())
             loaders[f"client_{c:02d}"] = DataLoader(
                 subset, batch_size=batch_size, shuffle=True,
-                num_workers=num_workers, pin_memory=True, drop_last=False)
+                num_workers=num_workers, pin_memory=_PIN_MEMORY, drop_last=False)
+    elif partition == "dirichlet":
+        # Dirichlet-based label-skew non-IID partition (image-level, not patient-level)
+        n = num_clients or full_ds.df["patient_id"].nunique()
+        rng = np.random.default_rng(seed)
+        labels = np.array([int(full_ds[i][1]) for i in range(len(full_ds))])
+        unique_classes = np.unique(labels)
+        client_indices: Dict[int, List[int]] = {c: [] for c in range(n)}
+        for cls in unique_classes:
+            cls_idx = np.where(labels == cls)[0].tolist()
+            rng.shuffle(cls_idx)
+            proportions = rng.dirichlet(np.full(n, dirichlet_alpha))
+            proportions = proportions / proportions.sum()
+            splits = (np.cumsum(proportions[:-1]) * len(cls_idx)).astype(int)
+            chunks = np.split(cls_idx, splits)
+            for c, chunk in enumerate(chunks):
+                client_indices[c].extend(chunk.tolist())
+        for c in range(n):
+            if not client_indices[c]:
+                continue
+            subset = full_ds.index_subset(client_indices[c])
+            loaders[f"client_{c:02d}"] = DataLoader(
+                subset, batch_size=batch_size, shuffle=True,
+                num_workers=num_workers, pin_memory=_PIN_MEMORY, drop_last=False)
     else:
-        raise ValueError(f"Unknown partition '{partition}'. Use 'patient' or 'iid'.")
+        raise ValueError(f"Unknown partition '{partition}'. Use 'patient', 'iid', or 'dirichlet'.")
     return loaders
 
 

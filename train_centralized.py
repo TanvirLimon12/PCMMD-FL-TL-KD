@@ -185,10 +185,14 @@ def main() -> None:
     res_path = Path(cfg["results_dir"]) / "centralized_results.csv"
     if res_path.exists():
         prev = pd.read_csv(res_path)
-        per_fold = pd.concat([prev, per_fold]).drop_duplicates(subset=["backbone", "fold"], keep="last")
+        per_fold = pd.concat([prev, per_fold]).drop_duplicates(
+            subset=["backbone", "fold", "finetune_mode"], keep="last")
     per_fold.to_csv(res_path, index=False)
 
-    summ = summarise_folds(per_fold[per_fold["backbone"] == cfg["backbone"]], METRIC_COLS)
+    ft = cfg.get("finetune_mode", "full")
+    summ = summarise_folds(
+        per_fold[(per_fold["backbone"] == cfg["backbone"]) & (per_fold["finetune_mode"] == ft)],
+        METRIC_COLS)
     summ.insert(0, "backbone", cfg["backbone"])
     sum_path = Path(cfg["results_dir"]) / "centralized_summary.csv"
     if sum_path.exists():

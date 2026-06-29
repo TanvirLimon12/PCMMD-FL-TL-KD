@@ -10,13 +10,16 @@ Produces:
 
 Paired comparisons (fold-aligned):
   • centralized backbones vs each other
-  • centralized best vs FedAvg(non-IID)            (if fold-level rows exist)
+  • centralized best vs FedAvg(non-IID)
   • centralized best vs FedProx(best mu, non-IID)
+  • centralized best vs FedBN(non-IID)
   • FedAvg vs FedProx
+  • FedAvg vs FedBN
+  • FedProx vs FedBN
 
 Reads whichever of these exist: centralized_results.csv, fedavg_results.csv,
-fedprox_results.csv. FL summary rows carry both best-round (besttest_*) and final
-(final_*) metrics; we use besttest_* for comparison.
+fedprox_results.csv, fedbn_results.csv. FL summary rows carry both best-round
+(besttest_*) and final (final_*) metrics; we use besttest_* for comparison.
 
 Run:  python statistical_analysis.py --config configs/centralized.yaml
 """
@@ -120,18 +123,21 @@ def main() -> None:
     res = Path(cfg["results_dir"])
 
     summary_rows, pairwise_rows = [], []
-    cen = fa = fp = None
+    cen = fa = fp = fbn = None
 
     cen_path = res / "centralized_results.csv"
     if cen_path.exists():
         cen = pd.read_csv(cen_path)
-        summary_rows += _summary_rows(cen, "centralized", "backbone", METRICS)
-        for b1, b2 in combinations(sorted(cen["backbone"].unique()), 2):
-            d1, d2 = _fold_series(cen[cen.backbone == b1], "f1"), _fold_series(cen[cen.backbone == b2], "f1")
-            shared = sorted(set(d1) & set(d2))
+        # Use only full fine-tune rows for 5-fold backbone comparison
+        if "finetune_mode" in cen.columns:
+            cen_full = cen[cen["finetune_mode"] == "full"]
+        else:
+            cen_full = cen
+        summary_rows += _summary_rows(cen_full, "centralized", "backbone", METRICS)
+        for b1, b2 in combinations(sorted(cen_full["backbone"].unique()), 2):
             for col in METRICS:
-                s1 = _fold_series(cen[cen.backbone == b1], col)
-                s2 = _fold_series(cen[cen.backbone == b2], col)
+                s1 = _fold_series(cen_full[cen_full.backbone == b1], col)
+                s2 = _fold_series(cen_full[cen_full.backbone == b2], col)
                 sh = sorted(set(s1) & set(s2))
                 if len(sh) >= 2:
                     pairwise_rows.append(_paired_tests(f"{b1}_vs_{b2}", [s1[f] for f in sh],
@@ -151,6 +157,13 @@ def main() -> None:
         summary_rows += _summary_rows(fp.rename(columns=lambda c: c.replace("besttest_", "")),
                                       "fedprox", "group", METRICS)
 
+    fbn_path = res / "fedbn_results.csv"
+    if fbn_path.exists():
+        fbn = pd.read_csv(fbn_path)
+        fbn = fbn.assign(group=fbn["distribution"])
+        summary_rows += _summary_rows(fbn.rename(columns=lambda c: c.replace("besttest_", "")),
+                                      "fedbn", "group", METRICS)
+
     # Cross-method paired tests on shared folds (non-IID), using besttest_* metrics
     def central_best_series(metric):
         if cen is None:
@@ -167,8 +180,9 @@ def main() -> None:
             if len(sh) >= 2:
                 pairwise_rows.append(_paired_tests("centralized_vs_fedavg", [cser[f] for f in sh],
                                                    [fser[f] for f in sh], col))
+
+    fp_best = None
     if fp is not None:
-        # best mu per fold for non-IID
         fp_ni = fp[fp["distribution"] == "noniid"]
         if len(fp_ni):
             idx = fp_ni.groupby("fold")["best_val_f1"].idxmax()
@@ -187,6 +201,30 @@ def main() -> None:
                     if len(sh) >= 2:
                         pairwise_rows.append(_paired_tests("fedavg_vs_fedprox", [aser[f] for f in sh],
                                                            [bser[f] for f in sh], col))
+
+    if fbn is not None:
+        fbn_ni = fbn[fbn["distribution"] == "noniid"]
+        for col in METRICS:
+            cser, fser = central_best_series(col), _fold_series(fbn_ni, col)
+            sh = sorted(set(cser) & set(fser))
+            if len(sh) >= 2:
+                pairwise_rows.append(_paired_tests("centralized_vs_fedbn", [cser[f] for f in sh],
+                                                   [fser[f] for f in sh], col))
+        if fa is not None:
+            fa_ni = fa[fa["distribution"] == "noniid"]
+            for col in METRICS:
+                aser, bser = _fold_series(fa_ni, col), _fold_series(fbn_ni, col)
+                sh = sorted(set(aser) & set(bser))
+                if len(sh) >= 2:
+                    pairwise_rows.append(_paired_tests("fedavg_vs_fedbn", [aser[f] for f in sh],
+                                                       [bser[f] for f in sh], col))
+        if fp_best is not None:
+            for col in METRICS:
+                aser, bser = _fold_series(fp_best, col), _fold_series(fbn_ni, col)
+                sh = sorted(set(aser) & set(bser))
+                if len(sh) >= 2:
+                    pairwise_rows.append(_paired_tests("fedprox_vs_fedbn", [aser[f] for f in sh],
+                                                       [bser[f] for f in sh], col))
 
     if not summary_rows:
         print("No result CSVs found yet. Run training first.")

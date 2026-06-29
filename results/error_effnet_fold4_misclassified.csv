@@ -1,0 +1,9 @@
+image_id,patient_id,true_label,pred_label,confidence,fold
+P_20221113_164843_crop6.jpg,5,non_plasma,plasma,0.98631,4
+P_20221113_165032_crop1.jpg,5,non_plasma,plasma,0.93614,4
+P_20221113_164944_crop13.jpg,5,non_plasma,plasma,0.82021,4
+P_20221113_165423_crop7.jpg,6,non_plasma,plasma,0.71487,4
+P_20221113_165335_crop4.jpg,5,non_plasma,plasma,0.64294,4
+P_20221113_165141_crop0.jpg,5,non_plasma,plasma,0.61329,4
+P_20221113_165344_crop2.jpg,5,non_plasma,plasma,0.60845,4
+P_20221113_165215_crop3.jpg,5,non_plasma,plasma,0.51179,4

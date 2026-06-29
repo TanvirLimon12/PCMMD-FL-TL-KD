@@ -1,0 +1,4 @@
+image_id,patient_id,true_label,pred_label,confidence,fold
+P_20221113_165423_crop6.jpg,6,non_plasma,plasma,0.907,4
+P_20221113_165032_crop1.jpg,5,non_plasma,plasma,0.859,4
+P_20221113_164944_crop10.jpg,5,non_plasma,plasma,0.67568,4

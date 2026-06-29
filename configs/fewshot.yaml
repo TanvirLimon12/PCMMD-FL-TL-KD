@@ -1,13 +1,9 @@
 data_root: data/eda
-fold_dir: null
-image_root: data/patient_cells
+fold_dir: data/eda
+image_root: /Users/shorna/Projects/group 5/PCMMD/data/patient_cells
 root_dir: ./
 folds:
 - 1
-- 2
-- 3
-- 4
-- 5
 backbones:
 - efficientnet_b0
 - mobilenet_v3

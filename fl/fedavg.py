@@ -25,15 +25,16 @@ def aggregate_fedavg(
     if total_samples == 0:
         raise ValueError("aggregate_fedavg: total sample count is 0")
 
+    # Aggregate on CPU to avoid device mismatch (MPS ↔ CPU) across clients
     aggregated: Dict[str, torch.Tensor] = {
-        k: torch.zeros_like(v, dtype=torch.float32)
+        k: torch.zeros_like(v.cpu(), dtype=torch.float32)
         for k, v in global_model.state_dict().items()
     }
 
     for weights, n in zip(client_weights_list, client_data_sizes):
         factor = n / total_samples
         for k in aggregated:
-            aggregated[k] += weights[k].float() * factor
+            aggregated[k] += weights[k].float().cpu() * factor
 
     global_model.load_state_dict(aggregated)
     return global_model

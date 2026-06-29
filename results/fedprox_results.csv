@@ -1,0 +1,6 @@
+method,distribution,mu,fold,backbone,rounds,best_round,best_val_f1,besttest_accuracy,besttest_precision,besttest_recall,besttest_f1,besttest_macro_f1,besttest_roc_auc,besttest_pr_auc,besttest_specificity,besttest_sensitivity,final_accuracy,final_precision,final_recall,final_f1,final_macro_f1,final_roc_auc,final_pr_auc,final_specificity,final_sensitivity
+fedprox,noniid,0.001,1,mobilenet_v3,20,,1.0,0.99005,0.98958,0.96939,0.97938,0.98641,0.98728,0.98616,0.99671,0.96939,,,,,,,,,
+fedprox,noniid,0.01,1,mobilenet_v3,20,,1.0,0.99254,0.98969,0.97959,0.98462,0.98984,0.99554,0.99169,0.99671,0.97959,,,,,,,,,
+fedprox,noniid,0.1,1,mobilenet_v3,20,15.0,0.97938,0.99254,0.98969,0.97959,0.98462,0.98984,0.98923,0.98737,0.99671,0.97959,0.99254,0.98969,0.97959,0.98462,0.98984,0.98775,0.98643,0.99671,0.97959
+fedprox,iid,0.001,1,mobilenet_v3,20,17.0,0.95906,0.99005,0.98958,0.96939,0.97938,0.98641,0.99356,0.99065,0.99671,0.96939,0.99005,0.98958,0.96939,0.97938,0.98641,0.99295,0.99034,0.99671,0.96939
+fedprox,iid,0.01,1,mobilenet_v3,20,16.0,0.96471,0.99254,0.98969,0.97959,0.98462,0.98984,0.99127,0.9883,0.99671,0.97959,0.99502,1.0,0.97959,0.98969,0.99321,0.99144,0.98864,1.0,0.97959

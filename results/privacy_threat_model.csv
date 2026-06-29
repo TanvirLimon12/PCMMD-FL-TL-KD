@@ -1,0 +1,7 @@
+Approach,Raw data shared,Gradients exposed,Reconstruction risk,DP guarantee,HIPAA compliant,Data stays on device
+Centralized,✗ Yes (all patients),N/A,High (direct data access),None,Requires DUA,✗ No
+FedAvg,✓ No,Per-round aggregated,Low (gradient inversion feasible with small n),None (without DP-SGD),Partial,✓ Yes
+FedProx,✓ No,Per-round aggregated,Low,None (without DP-SGD),Partial,✓ Yes
+FedBN,✓ No,Aggregated (BN stats local),Lower (BN stats withheld),None (without DP-SGD),Partial,✓ Yes
+FedAvg + DP-SGD,✓ No,Noisy (clipped + perturbed),Negligible (formal ε-DP),"(ε, δ)-DP  ε∈{1,5,10}",Strong,✓ Yes
+KD (student),✓ No (logits only),None at inference,Very low (soft labels only),Informal (label DP),Strong,✓ Yes

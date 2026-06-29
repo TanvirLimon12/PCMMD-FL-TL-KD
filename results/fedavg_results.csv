@@ -1,0 +1,5 @@
+method,distribution,fold,backbone,rounds,best_round,best_val_f1,besttest_accuracy,besttest_precision,besttest_recall,besttest_f1,besttest_macro_f1,besttest_roc_auc,besttest_pr_auc,besttest_specificity,besttest_sensitivity,final_accuracy,final_precision,final_recall,final_f1,final_macro_f1,final_roc_auc,final_pr_auc,final_specificity,final_sensitivity
+fedavg,iid,1,mobilenet_v3,20,11,0.98462,0.99005,0.98958,0.96939,0.97938,0.98641,0.98879,0.98556,0.99671,0.96939,0.99005,0.98958,0.96939,0.97938,0.98641,0.9878,0.97597,0.99671,0.96939
+fedavg,noniid,1,mobilenet_v3,20,8,0.98361,0.99005,0.98958,0.96939,0.97938,0.98641,0.99799,0.99471,0.99671,0.96939,0.99005,0.98958,0.96939,0.97938,0.98641,0.98325,0.98483,0.99671,0.96939
+fedavg,dirichlet_a0.5,1,mobilenet_v3,20,9,0.99415,0.98507,0.98936,0.94898,0.96875,0.97947,0.99621,0.99087,0.99671,0.94898,0.98507,1.0,0.93878,0.96842,0.97932,0.99533,0.99131,1.0,0.93878
+fedavg,dirichlet_a0.1,1,mobilenet_v3,20,15,0.60465,0.88308,0.96364,0.54082,0.69281,0.81031,0.93367,0.88092,0.99342,0.54082,0.80597,1.0,0.20408,0.33898,0.61264,0.96744,0.95413,1.0,0.20408
